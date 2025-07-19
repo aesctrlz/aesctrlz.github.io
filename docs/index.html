@@ -720,8 +720,10 @@
             margin-right: var(--spacing-md);
         }
         
+        /* [PERBAIKAN] Menambahkan padding untuk memperbaiki judul yang terpotong */
         .section-title-container {
             overflow: hidden;
+            padding-top: 1.5rem; 
         }
 
         .section-title {
@@ -2268,20 +2270,18 @@
 
                     const result = await response.json();
                     
-                    // Asumsikan backend Anda mengembalikan JSON dengan properti 'text' atau 'response'
+                    // Berdasarkan kode backend Anda, responsnya adalah { text: "..." }
                     if (result.text) {
                         return result.text;
-                    } else if (result.response) {
-                        return result.response;
                     } else {
+                        // Fallback jika struktur respons tidak seperti yang diharapkan
                         console.warn("Unexpected response structure from backend:", result);
-                        // Jika backend mengembalikan teks langsung dalam body JSON
-                        return result;
+                        return "Menerima respons, tetapi formatnya tidak terduga.";
                     }
 
                 } catch (error) {
                     console.error("Error calling backend API:", error);
-                    return `Terjadi kesalahan saat menghubungi backend Anda. Detail: ${error.message}`;
+                    return `Terjadi kesalahan saat menghubungi backend Anda. Pastikan server berjalan dan tidak ada error CORS. Detail: ${error.message}`;
                 }
             }
 
