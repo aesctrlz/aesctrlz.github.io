@@ -118,6 +118,7 @@
             --z-overlay: 1040;
             --z-modal: 1050;
             --z-tooltip: 1070;
+            --cursor-color: #000000; /* [PERUBAHAN] Variabel warna kursor */
         }
         
         /* CSS Reset and Base Styles */
@@ -145,6 +146,29 @@
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
             font-feature-settings: "liga", "kern";
+            cursor: none; /* Sembunyikan kursor default */
+        }
+
+        /* [PERUBAHAN] Custom Cursor Styles Disederhanakan */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background-color: var(--cursor-color);
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: transform 0.2s, width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: difference; /* Efek keren saat melewati elemen lain */
+        }
+
+        body:has(a:hover, button:hover, .toggle:hover) .cursor {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: transparent;
+            border: 2px solid var(--cursor-color);
         }
         
         /* Animated Background */
@@ -182,22 +206,6 @@
         .bg-particle:nth-child(11) { width: 7px; height: 7px; left: 25%; top: 0; border-radius: 2px; /* Bentuk persegi */ animation-delay: -5s; animation-duration: 25s; background: linear-gradient(45deg, var(--accent-color), var(--accent-hover)); }
         .bg-particle:nth-child(12) { width: 5px; height: 5px; left: 75%; top: 0; border-radius: 50%; /* Bentuk lingkaran */ animation-delay: -15s; animation-duration: 16s; background: linear-gradient(45deg, var(--secondary-color), var(--primary-light)); }
         
-        .wave-bg {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 200%;
-            height: 200px;
-            background: linear-gradient(45deg, 
-                var(--primary-color), 
-                var(--primary-hover), 
-                var(--secondary-color)
-            );
-            opacity: 0.05;
-            animation: wave 10s ease-in-out infinite;
-            border-radius: 50% 50% 0 0;
-        }
-        
         @keyframes float-particles {
             0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
             10% { opacity: 0.1; }
@@ -205,24 +213,28 @@
             100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
         
-        @keyframes wave {
-            0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
-            25% { transform: translateX(-25%) translateY(-10px) rotate(1deg); }
-            50% { transform: translateX(-50%) translateY(0) rotate(0deg); }
-            75% { transform: translateX(-75%) translateY(-10px) rotate(-1deg); }
+        /* [FITUR BARU] Keyframe untuk animasi gradien latar */
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         
         /* Theme Styles */
         body.light {
-            background: linear-gradient(135deg, #f8faff 0%, #ffffff 50%, #f3f4f6 100%);
+            background: linear-gradient(-45deg, #f8faff, #e1bee7, #f3f4f6, #ffffff);
+            background-size: 400% 400%;
+            animation: gradient-animation 20s ease infinite;
             color: var(--text-primary);
-            transition: all 0.5s ease;
+            --cursor-color: #000000;
         }
         
         body.dark {
-            background: linear-gradient(135deg, #0a0a0a 0%, #121212 50%, #1a1a1a 100%);
+            background: linear-gradient(-45deg, #0a0a0a, #2a1a3a, #1a1a1a, #121212);
+            background-size: 400% 400%;
+            animation: gradient-animation 20s ease infinite;
             color: var(--text-dark);
-            transition: all 0.5s ease;
+            --cursor-color: #ffffff;
         }
         
         /* Skip to Content Link for Accessibility */
@@ -513,35 +525,8 @@
             min-height: 100vh;
             text-align: center;
             padding: var(--spacing-xl) var(--spacing-md);
-            background: linear-gradient(135deg, var(--secondary-color), var(--bg-light));
             position: relative;
             overflow: hidden;
-        }
-        
-        .dark .hero {
-            background: linear-gradient(135deg, #2a1a3a, var(--bg-dark));
-        }
-        
-        /* Animated background particles */
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 25% 25%, var(--primary-color) 1px, transparent 1px),
-                radial-gradient(circle at 75% 75%, var(--primary-hover) 1px, transparent 1px);
-            background-size: 50px 50px, 80px 80px;
-            background-position: 0 0, 40px 40px;
-            opacity: 0.1;
-            animation: float 20s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
         }
         
         .hero-content {
@@ -695,25 +680,28 @@
             60% { transform: translateX(-50%) translateY(-5px); }
         }
         
-        /* Toggle Buttons */
+        /* [PERUBAHAN] Toggle Buttons Container */
         .toggle-container {
             position: fixed;
-            top: var(--spacing-md);
+            bottom: var(--spacing-md);
             right: var(--spacing-md);
             display: flex;
+            flex-direction: column;
             align-items: center;
             gap: var(--spacing-sm);
-            z-index: var(--z-tooltip); /* Changed from var(--z-popover) for better consistency */
+            z-index: var(--z-tooltip);
         }
         
         .toggle {
             cursor: pointer;
             padding: var(--spacing-sm);
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
-            color: white;
+            background: var(--glass-light);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--text-primary);
             transition: all var(--transition-speed);
-            border: none;
+            border: 1px solid var(--glass-border-light);
             width: 50px;
             height: 50px;
             display: flex;
@@ -724,36 +712,21 @@
             position: relative;
             overflow: hidden;
         }
-        
-        .toggle::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: scale(0);
-            transition: transform var(--transition-speed);
-        }
-        
-        .toggle:hover::before {
-            transform: scale(1);
+        .dark .toggle {
+            background: var(--glass-dark);
+            border-color: var(--glass-border-dark);
+            color: var(--text-dark);
         }
         
         .toggle:hover {
             transform: scale(1.1);
             box-shadow: 0 8px 25px var(--shadow-medium);
+            border-color: var(--primary-color);
         }
         
         .toggle:focus {
             outline: 2px solid var(--primary-color);
             outline-offset: 2px;
-        }
-        
-        .dark .toggle {
-            box-shadow: 0 4px 15px var(--shadow-dark-mode);
         }
         
         /* Section Styles */
@@ -782,6 +755,10 @@
             margin-right: var(--spacing-md);
         }
         
+        .section-title-container {
+            overflow: hidden;
+        }
+
         .section-title {
             font-size: clamp(2rem, 5vw, 3rem);
             text-align: center;
@@ -789,6 +766,11 @@
             position: relative;
             font-weight: 700;
             text-shadow: 0 2px 4px rgba(0,0,0,0.05); /* UI Sempurnaan */
+            transform: translateY(100%);
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .section.visible .section-title {
+            transform: translateY(0);
         }
         .dark .section-title { text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         
@@ -969,24 +951,30 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid var(--glass-border-light);
             position: relative;
+            --mouse-x: 50%;
+            --mouse-y: 50%;
         }
         
-        .project-card::after {
-            content: '';
+        /* [FITUR BARU] Dynamic Glow Effect */
+        .project-card::before {
+            content: "";
             position: absolute;
-            top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(179, 157, 219, 0.3), transparent 40%);
             opacity: 0;
             transition: opacity 0.3s;
-            pointer-events: none;
+            z-index: 1;
+        }
+        .project-card:hover::before {
+            opacity: 1;
         }
         
-        .project-card:hover::after {
-            opacity: 1;
-            animation: shimmer 1.5s ease-in-out;
+        .project-card > * {
+            position: relative;
+            z-index: 2;
         }
         
         .dark .project-card {
@@ -995,13 +983,12 @@
             box-shadow: 0 8px 32px var(--shadow-dark-mode);
         }
         
-        /* UI Sempurnaan: Efek glow pada hover kartu proyek */
         .project-card:hover {
             transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 25px 50px var(--shadow-medium), 0 0 25px var(--primary-light);
+            box-shadow: 0 25px 50px var(--shadow-medium);
         }
         .dark .project-card:hover {
-            box-shadow: 0 25px 50px var(--shadow-dark-mode), 0 0 25px var(--primary-color);
+            box-shadow: 0 25px 50px var(--shadow-dark-mode);
         }
         
         .project-image {
@@ -1117,43 +1104,10 @@
             animation: slideInUp 0.6s ease-out;
         }
         
-        .device-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
-            transition: left var(--transition-speed);
-        }
-        
-        .device-card::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(179, 157, 219, 0.3) 0%, transparent 70%);
-            transition: all 0.6s ease;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-        }
-        
         .dark .device-card {
             background: var(--glass-dark);
             border-color: var(--glass-border-dark);
             box-shadow: 0 8px 32px var(--shadow-dark-mode);
-        }
-        
-        .device-card:hover::before {
-            left: 0;
-        }
-        
-        .device-card:hover::after {
-            width: 200%;
-            height: 200%;
         }
         
         .device-card:hover {
@@ -1449,6 +1403,107 @@
         .toast.show {
             transform: translateX(0);
         }
+
+        /* [FITUR BARU] Command Palette */
+        .command-palette-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: var(--z-modal);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .command-palette-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .command-palette {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            width: 90%;
+            max-width: 600px;
+            background: var(--bg-light);
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 10px 30px var(--shadow-dark);
+            overflow: hidden;
+            z-index: calc(var(--z-modal) + 1);
+            opacity: 0;
+            visibility: hidden;
+            transition: transform 0.3s, opacity 0.3s, visibility 0.3s;
+        }
+        .command-palette-overlay.visible .command-palette {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            visibility: visible;
+        }
+        .dark .command-palette {
+            background: var(--bg-dark-secondary);
+            border: 1px solid var(--border-dark);
+        }
+        .command-palette-input {
+            width: 100%;
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-size: 1.1rem;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: inherit;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .dark .command-palette-input {
+            border-bottom-color: var(--border-dark);
+        }
+        .command-palette-list {
+            list-style: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .command-palette-item {
+            padding: var(--spacing-sm) var(--spacing-md);
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        .command-palette-item:hover, .command-palette-item.selected {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+        .dark .command-palette-item:hover, .dark .command-palette-item.selected {
+            background-color: var(--bg-dark);
+        }
+        .command-palette-item kbd {
+            background: var(--bg-light-secondary);
+            border: 1px solid var(--border-light);
+            padding: 2px 6px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+        .dark .command-palette-item kbd {
+            background: var(--bg-dark);
+            border-color: var(--border-dark);
+        }
+
+        /* [FITUR BARU] Scroll Progress Bar */
+        #scroll-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
+            width: 0%;
+            z-index: var(--z-fixed);
+            transition: width 0.1s linear;
+        }
         
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -1460,16 +1515,10 @@
                 display: block; /* Tampilkan tombol toggle mobile */
             }
             
+            /* [PERUBAHAN] Posisi toggle di mobile */
             .toggle-container {
-                top: var(--spacing-sm);
+                bottom: var(--spacing-sm);
                 right: var(--spacing-sm);
-                flex-direction: column;
-            }
-            
-            .toggle {
-                width: 45px;
-                height: 45px;
-                font-size: 1.1rem;
             }
             
             .hero {
@@ -1587,6 +1636,12 @@
     ==================================================================
     -->
 
+    <!-- [FITUR BARU] Custom Cursor Elements -->
+    <div class="cursor"></div>
+    
+    <!-- [FITUR BARU] Scroll Progress Bar -->
+    <div id="scroll-progress-bar"></div>
+
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
     <div class="loading-screen" id="loadingScreen">
@@ -1628,7 +1683,7 @@
         </button>
         <button class="toggle" id="languageToggle" aria-label="Toggle language">
             <span id="languageText">EN</span>
-            <i class="fas fa-globe"></i> </button>
+        </button>
     </div>
     
     <div class="animated-bg">
@@ -1636,7 +1691,6 @@
         <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
         <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
         <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
-        <div class="wave-bg"></div>
     </div>
     
     <main id="main-content">
@@ -1651,11 +1705,11 @@
                     <i class="fas fa-robot"></i> Developer otodidak yang passionate tentang otomasi, dan menciptakan tools yang memecahkan masalah nyata.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary" id="viewWorkBtn">
+                    <a href="#projects" class="btn btn-primary magnetic-button" id="viewWorkBtn">
                         <i class="fas fa-code"></i>
                         <span id="viewWorkText">View My Work</span>
                     </a>
-                    <a href="#contact" class="btn btn-secondary" id="getInTouchBtn">
+                    <a href="#contact" class="btn btn-secondary magnetic-button" id="getInTouchBtn">
                         <i class="fas fa-envelope"></i>
                         <span id="getInTouchText">Get In Touch</span>
                     </a>
@@ -1667,7 +1721,7 @@
         </section>
         
         <section class="section about" id="about">
-            <h2 class="section-title">About Me</h2>
+            <div class="section-title-container"><h2 class="section-title">About Me</h2></div>
             <div class="about-content">
                 <p class="about-text" id="aboutTextEN">
                     <i class="fas fa-user-graduate"></i> Hi! I'm Aes, a 19-year-old self-taught developer exploring automation, and modular tools. 
@@ -1688,7 +1742,7 @@
         </section>
         
         <section class="skills">
-            <h2 class="section-title" id="skillsTitle">Skills & Technologies</h2>
+            <div class="section-title-container"><h2 class="section-title" id="skillsTitle">Skills & Technologies</h2></div>
             <div class="skills-grid">
                 <div class="skill-category"><h3><i class="fas fa-code"></i> Programming Languages</h3><div class="skill-list"><span class="skill-tag">JavaScript</span><span class="skill-tag">Python</span><span class="skill-tag">TypeScript</span><span class="skill-tag">HTML/CSS</span><span class="skill-tag">Node.js</span></div></div>
                 <div class="skill-category"><h3><i class="fas fa-robot"></i> Automation & Tools</h3><div class="skill-list"><span class="skill-tag">Selenium</span><span class="skill-tag">Puppeteer</span><span class="skill-tag">Web Scraping</span><span class="skill-tag">API Integration</span><span class="skill-tag">Scripting</span></div></div>
@@ -1698,9 +1752,9 @@
         </section>
         
         <section class="section aes-co" id="projects">
-            <h2 class="section-title" id="projectsTitle">Featured Projects</h2>
+            <div class="section-title-container"><h2 class="section-title" id="projectsTitle">Featured Projects</h2></div>
             <div class="projects-grid">
-                <div class="project-card">
+                <div class="project-card" data-tilt>
                     <div class="project-image">
                         <!-- GAMBAR DIPERBARUI -->
                         <img src="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/aes-co.png" alt="AES-CO project dashboard" loading="lazy">
@@ -1713,13 +1767,13 @@
                         </p>
                         <div class="project-tech"><span class="tech-tag">JavaScript</span><span class="tech-tag">Node.js</span><span class="tech-tag">Open Source</span></div>
                         <div class="project-links">
-                            <a href="https://github.com/aes-co" class="btn btn-secondary project-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="https://github.com/aes-co" class="btn btn-primary project-link" aria-label="Explore AES-CO"><i class="fas fa-external-link-alt"></i> Explore</a>
+                            <a href="https://github.com/aes-co" class="btn btn-secondary project-link magnetic-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="https://github.com/aes-co" class="btn btn-primary project-link magnetic-button" aria-label="Explore AES-CO"><i class="fas fa-external-link-alt"></i> Explore</a>
                         </div>
                     </div>
                 </div>
                 
-                <div class="project-card">
+                <div class="project-card" data-tilt>
                     <div class="project-image">
                         <!-- GAMBAR DIPERBARUI -->
                         <img src="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/ctrl-z.png" alt="ctrl-z verse project interface" loading="lazy">
@@ -1732,8 +1786,8 @@
                         </p>
                         <div class="project-tech"><span class="tech-tag">TypeScript</span><span class="tech-tag">React</span><span class="tech-tag">Automation</span></div>
                         <div class="project-links">
-                            <a href="https://github.com/ctrlzverse" class="btn btn-secondary project-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="https://github.com/ctrlzverse" class="btn btn-primary project-link" aria-label="Explore ctrl-z verse"><i class="fas fa-external-link-alt"></i> Explore</a>
+                            <a href="https://github.com/ctrlzverse" class="btn btn-secondary project-link magnetic-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="https://github.com/ctrlzverse" class="btn btn-primary project-link magnetic-button" aria-label="Explore ctrl-z verse"><i class="fas fa-external-link-alt"></i> Explore</a>
                         </div>
                     </div>
                 </div>
@@ -1742,12 +1796,12 @@
         </section>
         
         <section class="devices">
-            <h2 class="section-title" id="devicesTitle">My Tech Arsenal</h2>
+            <div class="section-title-container"><h2 class="section-title" id="devicesTitle">My Tech Arsenal</h2></div>
             <div class="devices-grid">
-                <div class="device-card"><div class="device-icon"><i class="fas fa-desktop"></i></div><h3 class="device-name">Custom PC Build</h3><p class="device-specs">Intel® Core™ i7-9700 Processor<br>NVIDIA GeForce RTX 1080 Ti<br>16GB DDR4 RAM • 1TB NVMe SSD<br>The powerhouse for heavy lifting & development.</p></div>
-                <div class="device-card"><div class="device-icon"><i class="fas fa-mobile-alt"></i></div><h3 class="device-name">Galaxy Note 10</h3><p class="device-specs">8GB RAM • Android 12<br>Primary mobile development device<br>Termux • VS Code Mobile</p></div>
-                <div class="device-card"><div class="device-icon"><i class="fas fa-laptop-code"></i></div><h3 class="device-name">Development Setup</h3><p class="device-specs">Cloud-based development environment<br>GitHub Codespaces • Remote SSH<br>Seamless coding from anywhere.</p></div>
-                <div class="device-card"><div class="device-icon"><i class="fas fa-cloud"></i></div><h3 class="device-name">Cloud Services</h3><p class="device-specs">Google Cloud Platform • Heroku • Vercel<br>MongoDB Atlas • Automated CI/CD<br>Scalable solutions for global reach.</p></div>
+                <div class="device-card" data-tilt><div class="device-icon"><i class="fas fa-desktop"></i></div><h3 class="device-name">Custom PC Build</h3><p class="device-specs">Intel® Core™ i7-9700 Processor<br>NVIDIA GeForce RTX 1080 Ti<br>16GB DDR4 RAM • 1TB NVMe SSD<br>The powerhouse for heavy lifting & development.</p></div>
+                <div class="device-card" data-tilt><div class="device-icon"><i class="fas fa-mobile-alt"></i></div><h3 class="device-name">Galaxy Note 10</h3><p class="device-specs">8GB RAM • Android 12<br>Primary mobile development device<br>Termux • VS Code Mobile</p></div>
+                <div class="device-card" data-tilt><div class="device-icon"><i class="fas fa-laptop-code"></i></div><h3 class="device-name">Development Setup</h3><p class="device-specs">Cloud-based development environment<br>GitHub Codespaces • Remote SSH<br>Seamless coding from anywhere.</p></div>
+                <div class="device-card" data-tilt><div class="device-icon"><i class="fas fa-cloud"></i></div><h3 class="device-name">Cloud Services</h3><p class="device-specs">Google Cloud Platform • Heroku • Vercel<br>MongoDB Atlas • Automated CI/CD<br>Scalable solutions for global reach.</p></div>
             </div>
         </section>
         
@@ -1757,16 +1811,16 @@
         </section>
         
         <section class="section contact" id="contact">
-            <h2 class="section-title">Let's Connect</h2>
+            <div class="section-title-container"><h2 class="section-title">Let's Connect</h2></div>
             <div class="contact-content">
                 <p class="contact-text" id="contactTextEN"><i class="fas fa-handshake"></i> I'm always excited to collaborate on interesting projects or discuss new ideas. Whether you're looking for automation solutions, or just want to chat about tech, feel free to reach out!</p>
                 <p class="contact-text" id="contactTextID" style="display: none;"><i class="fas fa-handshake"></i> Aku selalu antusias untuk berkolaborasi dalam proyek menarik atau mendiskusikan ide-ide baru. Baik kamu mencari solusi otomasi, atau hanya ingin ngobrol tentang teknologi, jangan ragu untuk menghubungi!</p>
                 <div class="social-links">
-                    <a href="https://github.com/aesneverhere" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="https://t.me/aesneverhere" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i> Telegram Profile</a>
-                    <a href="https://t.me/aes_hub" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i> Telegram Channel</a>
-                    <a href="mailto:aesh.n@outlook.com" class="social-link"><i class="fas fa-envelope"></i> Personal Email</a>
-                    <a href="mailto:hello@zverse.my.id" class="social-link"><i class="fas fa-building"></i> Org Email</a>
+                    <a href="https://github.com/aesneverhere" class="social-link magnetic-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://t.me/aesneverhere" class="social-link magnetic-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i> Telegram Profile</a>
+                    <a href="https://t.me/aes_hub" class="social-link magnetic-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i> Telegram Channel</a>
+                    <a href="mailto:aesh.n@outlook.com" class="social-link magnetic-button"><i class="fas fa-envelope"></i> Personal Email</a>
+                    <a href="mailto:hello@zverse.my.id" class="social-link magnetic-button"><i class="fas fa-building"></i> Org Email</a>
                 </div>
             </div>
         </section>
@@ -1781,12 +1835,23 @@
     </footer>
     
     <div class="toast" id="toast"></div>
+
+    <!-- [FITUR BARU] Command Palette HTML -->
+    <div class="command-palette-overlay" id="commandPaletteOverlay">
+        <div class="command-palette" id="commandPalette">
+            <input type="text" class="command-palette-input" id="commandPaletteInput" placeholder="Type a command or search...">
+            <ul class="command-palette-list" id="commandPaletteList"></ul>
+        </div>
+    </div>
     
     <!-- 
     ==================================================================
     |                         BAGIAN JAVASCRIPT                      |
     ==================================================================
     -->
+    <!-- [FITUR BARU] Vanilla Tilt JS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
+
     <script>
         // Enhanced Theme and Language Toggle Functionality
         class WebsiteController {
@@ -1803,6 +1868,14 @@
                 this.initializeTypingEffect();
                 this.initializeHeroParallax();
                 this.initializeScrollIndicatorBehavior();
+
+                // [FITUR BARU] Initialize new UI features
+                this.initializeCustomCursor();
+                this.initializeMagneticButtons();
+                this.initializeTiltEffect();
+                this.initializeDynamicGlow();
+                this.initializeCommandPalette();
+                this.initializeScrollProgress();
             }
             
             initializeElements() {
@@ -1819,14 +1892,12 @@
                 this.mobileMenuClose = document.getElementById('mobileMenuClose');
                 this.mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-                // Elemen untuk typing effect dan parallax
                 this.heroTitle = document.querySelector('.hero h1');
                 this.heroSubtitle = document.querySelector('.hero-subtitle');
                 this.heroDescriptionEN = document.getElementById('heroDescriptionEN');
                 this.heroDescriptionID = document.getElementById('heroDescriptionID');
                 this.scrollIndicator = document.querySelector('.scroll-indicator i');
                 
-                // Language elements
                 this.languageElements = {
                     en: {
                         aboutText: document.getElementById('aboutTextEN'),
@@ -1840,24 +1911,9 @@
                     }
                 };
                 
-                // Translation content
                 this.translations = {
                     en: {
-                        viewWorkText: 'View My Work',
-                        getInTouchText: 'Get In Touch',
-                        yearsCodingLabel: 'Years Coding',
-                        projectsCreatedLabel: 'Projects Created',
-                        selfTaughtLabel: 'Self-taught',
-                        curiosityLabel: 'Curiosity Level',
-                        skillsTitle: 'Skills & Technologies',
-                        projectsTitle: 'Featured Projects',
-                        devicesTitle: 'My Tech Arsenal',
-                        homeNav: 'Home',
-                        aboutNav: 'About',
-                        projectsNav: 'Projects',
-                        contactNav: 'Contact',
-                        loadingText: 'Loading',
-                        // Add hero subtitle and description to translations if they are dynamic
+                        viewWorkText: 'View My Work', getInTouchText: 'Get In Touch', yearsCodingLabel: 'Years Coding', projectsCreatedLabel: 'Projects Created', selfTaughtLabel: 'Self-taught', curiosityLabel: 'Curiosity Level', skillsTitle: 'Skills & Technologies', projectsTitle: 'Featured Projects', devicesTitle: 'My Tech Arsenal', homeNav: 'Home', aboutNav: 'About', projectsNav: 'Projects', contactNav: 'Contact', loadingText: 'Loading',
                         heroSubtitleText: '<i class="fas fa-quote-left"></i> Silence is our default setting. Curiosity is our engine. <i class="fas fa-quote-right"></i>',
                         heroDescriptionTextEN: '<i class="fas fa-robot"></i> Self-taught developer passionate about automation, and creating tools that solve real problems.',
                         heroDescriptionTextID: '<i class="fas fa-robot"></i> Developer otodidak yang passionate tentang otomasi, dan menciptakan tools yang memecahkan masalah nyata.',
@@ -1867,71 +1923,30 @@
                         contactTextContentID: '<i class="fas fa-handshake"></i> Aku selalu antusias untuk berkolaborasi dalam proyek menarik atau mendiskusikan ide-ide baru. Baik kamu mencari solusi otomasi, atau hanya ingin ngobrol tentang teknologi, jangan ragu untuk menghubungi!',
                     },
                     id: {
-                        viewWorkText: 'Lihat Karya Saya',
-                        getInTouchText: 'Hubungi Saya',
-                        yearsCodingLabel: 'Tahun Coding',
-                        projectsCreatedLabel: 'Proyek Dibuat',
-                        selfTaughtLabel: 'Otodidak',
-                        curiosityLabel: 'Tingkat Keingintahuan',
-                        skillsTitle: 'Keahlian & Teknologi',
-                        projectsTitle: 'Proyek Unggulan',
-                        devicesTitle: 'Arsenal Teknologi Saya',
-                        homeNav: 'Beranda',
-                        aboutNav: 'Tentang',
-                        projectsNav: 'Proyek',
-                        contactNav: 'Kontak',
-                        loadingText: 'Memuat',
-                        // Add hero subtitle and description to translations if they are dynamic
+                        viewWorkText: 'Lihat Karya Saya', getInTouchText: 'Hubungi Saya', yearsCodingLabel: 'Tahun Coding', projectsCreatedLabel: 'Proyek Dibuat', selfTaughtLabel: 'Otodidak', curiosityLabel: 'Tingkat Keingintahuan', skillsTitle: 'Keahlian & Teknologi', projectsTitle: 'Proyek Unggulan', devicesTitle: 'Arsenal Teknologi Saya', homeNav: 'Beranda', aboutNav: 'Tentang', projectsNav: 'Proyek', contactNav: 'Kontak', loadingText: 'Memuat',
                         heroSubtitleText: '<i class="fas fa-quote-left"></i> Keheningan adalah pengaturan bawaan kami. Keingintahuan adalah mesin kami. <i class="fas fa-quote-right"></i>',
-                        heroDescriptionTextEN: '<i class="fas fa-robot"></i> Self-taught developer passionate about automation, and creating tools that solve real problems.', // Keep EN for ID if not explicitly translated
+                        heroDescriptionTextEN: '<i class="fas fa-robot"></i> Self-taught developer passionate about automation, and creating tools that solve real problems.',
                         heroDescriptionTextID: '<i class="fas fa-robot"></i> Developer otodidak yang passionate tentang otomasi, dan menciptakan tools yang memecahkan masalah nyata.',
-                        aboutTextContentEN: '<i class="fas fa-user-graduate"></i> Hi! I\'m Aes, a 19-year-old self-taught developer exploring automation, and modular tools. I believe in the power of code to transform ideas into reality and solve complex problems with elegant solutions.', // Keep EN for ID if not explicitly translated
+                        aboutTextContentEN: '<i class="fas fa-user-graduate"></i> Hi! I\'m Aes, a 19-year-old self-taught developer exploring automation, and modular tools. I believe in the power of code to transform ideas into reality and solve complex problems with elegant solutions.',
                         aboutTextContentID: '<i class="fas fa-user-graduate"></i> Halo! Aku Aes, seorang developer otodidak 19 tahun yang tertarik pada otomasi modular. Aku percaya pada kekuatan kode untuk mengubah ide menjadi kenyataan dan memecahkan masalah kompleks dengan solusi yang elegan.',
-                        contactTextContentEN: '<i class="fas fa-handshake"></i> I\'m always excited to collaborate on interesting projects or discuss new ideas. Whether you\'re looking for automation solutions, or just want to chat about tech, feel free to reach out!', // Keep EN for ID if not explicitly translated
+                        contactTextContentEN: '<i class="fas fa-handshake"></i> I\'m always excited to collaborate on interesting projects or discuss new ideas. Whether you\'re looking for automation solutions, or just want to chat about tech, feel free to reach out!',
                         contactTextContentID: '<i class="fas fa-handshake"></i> Aku selalu antusias untuk berkolaborasi dalam proyek menarik atau mendiskusikan ide-ide baru. Baik kamu mencari solusi otomasi, atau hanya ingin ngobrol tentang teknologi, jangan ragu untuk menghubungi!',
                     }
                 };
 
-                // Elemen yang perlu diterjemahkan di luar languageElements
                 this.translatableElements = {
-                    viewWorkText: document.getElementById('viewWorkText'),
-                    getInTouchText: document.getElementById('getInTouchText'),
-                    yearsCodingLabel: document.getElementById('yearsCodingLabel'),
-                    projectsCreatedLabel: document.getElementById('projectsCreatedLabel'),
-                    selfTaughtLabel: document.getElementById('selfTaughtLabel'),
-                    curiosityLabel: document.getElementById('curiosityLabel'),
-                    skillsTitle: document.getElementById('skillsTitle'),
-                    projectsTitle: document.getElementById('projectsTitle'),
-                    devicesTitle: document.getElementById('devicesTitle'),
-                    homeNavLink: document.querySelector('.nav-menu a[href="#home"]'),
-                    aboutNavLink: document.querySelector('.nav-menu a[href="#about"]'),
-                    projectsNavLink: document.querySelector('.nav-menu a[href="#projects"]'),
-                    contactNavLink: document.querySelector('.nav-menu a[href="#contact"]'),
-                    homeMobileNavLink: document.querySelector('.mobile-nav-menu a[href="#home"]'),
-                    aboutMobileNavLink: document.querySelector('.mobile-nav-menu a[href="#about"]'),
-                    projectsMobileNavLink: document.querySelector('.mobile-nav-menu a[href="#projects"]'),
-                    contactMobileNavLink: document.querySelector('.mobile-nav-menu a[href="#contact"]'),
-                    loadingScreenText: document.querySelector('.loading-text'),
-                    
-                    // Add references for dynamic content with icons
-                    heroSubtitle: this.heroSubtitle,
-                    heroDescriptionEN: this.heroDescriptionEN,
-                    heroDescriptionID: this.heroDescriptionID,
-                    aboutTextEN: document.getElementById('aboutTextEN'),
-                    aboutTextID: document.getElementById('aboutTextID'),
-                    contactTextEN: document.getElementById('contactTextEN'),
-                    contactTextID: document.getElementById('contactTextID'),
+                    viewWorkText: document.getElementById('viewWorkText'), getInTouchText: document.getElementById('getInTouchText'), yearsCodingLabel: document.getElementById('yearsCodingLabel'), projectsCreatedLabel: document.getElementById('projectsCreatedLabel'), selfTaughtLabel: document.getElementById('selfTaughtLabel'), curiosityLabel: document.getElementById('curiosityLabel'), skillsTitle: document.getElementById('skillsTitle'), projectsTitle: document.getElementById('projectsTitle'), devicesTitle: document.getElementById('devicesTitle'),
+                    homeNavLink: document.querySelector('.nav-menu a[href="#home"]'), aboutNavLink: document.querySelector('.nav-menu a[href="#about"]'), projectsNavLink: document.querySelector('.nav-menu a[href="#projects"]'), contactNavLink: document.querySelector('.nav-menu a[href="#contact"]'),
+                    homeMobileNavLink: document.querySelector('.mobile-nav-menu a[href="#home"]'), aboutMobileNavLink: document.querySelector('.mobile-nav-menu a[href="#about"]'), projectsMobileNavLink: document.querySelector('.mobile-nav-menu a[href="#projects"]'), contactMobileNavLink: document.querySelector('.mobile-nav-menu a[href="#contact"]'),
+                    loadingScreenText: document.querySelector('.loading-text'), heroSubtitle: this.heroSubtitle, heroDescriptionEN: this.heroDescriptionEN, heroDescriptionID: this.heroDescriptionID, aboutTextEN: document.getElementById('aboutTextEN'), aboutTextID: document.getElementById('aboutTextID'), contactTextEN: document.getElementById('contactTextEN'), contactTextID: document.getElementById('contactTextID'),
                 };
             }
             
             initializeTheme() {
-                // Load saved theme or default to light
                 const savedTheme = localStorage.getItem('theme') || 'light';
                 this.setTheme(savedTheme);
-                
                 this.themeToggle.addEventListener('click', () => {
-                    const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
-                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    const newTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
                     this.setTheme(newTheme);
                     this.showToast(`Switched to ${newTheme} mode`, 'info');
                 });
@@ -1940,107 +1955,51 @@
             setTheme(theme) {
                 document.body.classList.remove('light', 'dark');
                 document.body.classList.add(theme);
-                
-                const icon = this.themeToggle.querySelector('i');
-                if (theme === 'dark') {
-                    icon.className = 'fas fa-sun';
-                } else {
-                    icon.className = 'fas fa-moon';
-                }
-                
+                this.themeToggle.querySelector('i').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
                 localStorage.setItem('theme', theme);
-                
-                // Update meta theme-color
                 const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-                if (metaThemeColor) {
-                    metaThemeColor.setAttribute('content', theme === 'dark' ? '#121212' : '#b39ddb');
-                }
+                if (metaThemeColor) metaThemeColor.setAttribute('content', theme === 'dark' ? '#121212' : '#b39ddb');
+                this.updateCursorColor(); // Update cursor when theme changes
             }
             
             initializeLanguage() {
-                // Load saved language or default to English
                 const savedLang = localStorage.getItem('language') || 'en';
                 this.setLanguage(savedLang);
-                
                 this.languageToggle.addEventListener('click', () => {
-                    const currentLang = this.languageText.textContent.toLowerCase();
-                    const newLang = currentLang === 'en' ? 'id' : 'en';
+                    const newLang = this.languageText.textContent.toLowerCase() === 'en' ? 'id' : 'en';
                     this.setLanguage(newLang);
                     this.showToast(`Language switched to ${newLang === 'en' ? 'English' : 'Indonesian'}`, 'info');
                 });
             }
             
             setLanguage(lang) {
-                // Hide all language-specific content
-                Object.values(this.languageElements).forEach(langObj => {
-                    Object.values(langObj).forEach(element => {
-                        if (element) element.style.display = 'none';
-                    });
-                });
-                
-                // Show content for the selected language
-                if (this.languageElements[lang]) {
-                    Object.values(this.languageElements[lang]).forEach(element => {
-                        if (element) element.style.display = 'block';
-                    });
-                }
-
-                // Update translatable elements
+                Object.values(this.languageElements).forEach(langObj => Object.values(langObj).forEach(el => el && (el.style.display = 'none')));
+                if (this.languageElements[lang]) Object.values(this.languageElements[lang]).forEach(el => el && (el.style.display = 'block'));
                 for (const key in this.translatableElements) {
                     if (this.translatableElements[key]) {
-                        if (key.includes('heroSubtitle')) {
-                            this.translatableElements[key].innerHTML = this.translations[lang].heroSubtitleText;
-                        } else if (key === 'heroDescriptionEN') {
-                            this.translatableElements[key].innerHTML = this.translations[lang].heroDescriptionTextEN;
-                        } else if (key === 'heroDescriptionID') {
-                            this.translatableElements[key].innerHTML = this.translations[lang].heroDescriptionTextID;
-                        } else if (key === 'aboutTextEN') {
-                            this.translatableElements[key].innerHTML = this.translations[lang].aboutTextContentEN;
-                        } else if (key === 'aboutTextID') {
-                            this.translatableElements[key].innerHTML = this.translations[lang].aboutTextContentID;
-                        } else if (key === 'contactTextEN') {
-                            this.translatableElements[key].innerHTML = this.translations[lang].contactTextContentEN;
-                        } else if (key === 'contactTextID') {
-                            this.translatableElements[key].innerHTML = this.translations[lang].contactTextContentID;
-                        }
-                        // Handle special cases for navigation links
-                        else if (key.includes('NavLink')) {
-                            const navKey = key.replace('NavLink', '');
-                            this.translatableElements[key].textContent = this.translations[lang][`${navKey}Nav`];
-                        } else if (key.includes('MobileNavLink')) {
-                            const navKey = key.replace('MobileNavLink', '');
-                            this.translatableElements[key].textContent = this.translations[lang][`${navKey}Nav`];
-                        } else {
-                            this.translatableElements[key].textContent = this.translations[lang][key];
-                        }
+                        if (key.includes('heroSubtitle')) this.translatableElements[key].innerHTML = this.translations[lang].heroSubtitleText;
+                        else if (key === 'heroDescriptionEN') this.translatableElements[key].innerHTML = this.translations[lang].heroDescriptionTextEN;
+                        else if (key === 'heroDescriptionID') this.translatableElements[key].innerHTML = this.translations[lang].heroDescriptionTextID;
+                        else if (key === 'aboutTextEN') this.translatableElements[key].innerHTML = this.translations[lang].aboutTextContentEN;
+                        else if (key === 'aboutTextID') this.translatableElements[key].innerHTML = this.translations[lang].aboutTextContentID;
+                        else if (key === 'contactTextEN') this.translatableElements[key].innerHTML = this.translations[lang].contactTextContentEN;
+                        else if (key === 'contactTextID') this.translatableElements[key].innerHTML = this.translations[lang].contactTextContentID;
+                        else if (key.includes('NavLink')) this.translatableElements[key].textContent = this.translations[lang][`${key.replace('NavLink', '')}Nav`];
+                        else if (key.includes('MobileNavLink')) this.translatableElements[key].textContent = this.translations[lang][`${key.replace('MobileNavLink', '')}Nav`];
+                        else this.translatableElements[key].textContent = this.translations[lang][key];
                     }
                 }
-                
-                // Update toggle button text
                 this.languageText.textContent = lang.toUpperCase();
-                
-                // Update HTML lang attribute
                 document.documentElement.lang = lang;
-                
                 localStorage.setItem('language', lang);
             }
             
             initializeScrollEffects() {
                 let lastScrollTop = 0;
-                
                 window.addEventListener('scroll', () => {
                     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    
-                    // Hide/show navigation on scroll
-                    if (scrollTop > lastScrollTop && scrollTop > 100) {
-                        this.navigation.classList.add('hidden');
-                    } else {
-                        this.navigation.classList.remove('hidden');
-                    }
-                    
+                    this.navigation.classList.toggle('hidden', scrollTop > lastScrollTop && scrollTop > 100);
                     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-                    
-                    // Animate sections on scroll
                     this.animateOnScroll();
                 });
             }
@@ -2048,74 +2007,37 @@
             animateOnScroll() {
                 const sections = document.querySelectorAll('.section');
                 const windowHeight = window.innerHeight;
-                
                 sections.forEach(section => {
                     const sectionTop = section.getBoundingClientRect().top;
-                    
-                    if (sectionTop < windowHeight - 100) {
-                        section.classList.add('visible');
-                    } else {
-                        // Opsional: hapus 'visible' jika section keluar dari viewport atas
-                        // if (sectionTop > windowHeight) {
-                        //     section.classList.remove('visible');
-                        // }
-                    }
+                    if (sectionTop < windowHeight - 100) section.classList.add('visible');
                 });
             }
             
             initializeNavigation() {
-                // Enhanced smooth scroll for navigation links
-                const navLinks = document.querySelectorAll('a[href^="#"]');
-                
-                navLinks.forEach(link => {
+                document.querySelectorAll('a[href^="#"]').forEach(link => {
                     link.addEventListener('click', (e) => {
                         e.preventDefault();
-                        const targetId = link.getAttribute('href').slice(1);
-                        const targetElement = document.getElementById(targetId);
-                        
+                        const targetElement = document.getElementById(link.getAttribute('href').slice(1));
                         if (targetElement) {
-                            const navHeight = this.navigation.offsetHeight;
-                            const offsetTop = targetElement.offsetTop - navHeight - 20;
-                            
-                            // Enhanced smooth scroll with easing
-                            window.scrollTo({
-                                top: offsetTop,
-                                behavior: 'smooth'
-                            });
-
-                            // Close mobile menu if open
-                            if (this.mobileNavMenu.classList.contains('active')) {
-                                this.closeMobileMenu();
-                            }
+                            const offsetTop = targetElement.offsetTop - this.navigation.offsetHeight - 20;
+                            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                            if (this.mobileNavMenu.classList.contains('active')) this.closeMobileMenu();
                         }
                     });
                 });
-                
-                // Highlight active navigation item
                 this.updateActiveNavItem();
                 window.addEventListener('scroll', () => this.updateActiveNavItem());
             }
             
             updateActiveNavItem() {
-                const sections = document.querySelectorAll('section[id]');
-                const navLinks = document.querySelectorAll('.nav-menu .nav-link, .mobile-nav-menu .nav-link');
-                
                 let current = '';
-                
-                sections.forEach(section => {
+                document.querySelectorAll('section[id]').forEach(section => {
                     const sectionTop = section.offsetTop - this.navigation.offsetHeight - 50;
-                    const sectionHeight = section.offsetHeight;
-                    
-                    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-                        current = section.getAttribute('id');
-                    }
+                    if (window.scrollY >= sectionTop) current = section.getAttribute('id');
                 });
-                
-                navLinks.forEach(link => {
+                document.querySelectorAll('.nav-menu .nav-link, .mobile-nav-menu .nav-link').forEach(link => {
                     link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${current}`) {
-                        link.classList.add('active');
-                    }
+                    if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
                 });
             }
             
@@ -2123,22 +2045,13 @@
                 window.addEventListener('load', () => {
                     setTimeout(() => {
                         this.loadingScreen.classList.add('fade-out');
-                        setTimeout(() => {
-                            if (this.loadingScreen) {
-                                this.loadingScreen.style.display = 'none';
-                            }
-                        }, 800);
+                        setTimeout(() => { if (this.loadingScreen) this.loadingScreen.style.display = 'none'; }, 800);
                     }, 1000); // Waktu loading dipercepat sedikit
                 });
             }
             
             initializeAnimations() {
                 if ('IntersectionObserver' in window) {
-                    const observerOptions = {
-                        threshold: 0.1,
-                        rootMargin: '0px 0px -50px 0px'
-                    };
-                    
                     const observer = new IntersectionObserver((entries) => {
                         entries.forEach(entry => {
                             if (entry.isIntersecting) {
@@ -2146,160 +2059,73 @@
                                 observer.unobserve(entry.target);
                             }
                         });
-                    }, observerOptions);
-                    
-                    document.querySelectorAll('.section').forEach(section => {
-                        observer.observe(section);
-                    });
+                    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+                    document.querySelectorAll('.section').forEach(section => observer.observe(section));
                 }
             }
 
             initializeMobileMenu() {
-                this.mobileMenuToggle.addEventListener('click', () => {
-                    this.openMobileMenu();
-                });
-
-                this.mobileMenuClose.addEventListener('click', () => {
-                    this.closeMobileMenu();
-                });
-
-                this.mobileNavOverlay.addEventListener('click', () => {
-                    this.closeMobileMenu();
-                });
-
-                this.mobileNavLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        this.closeMobileMenu();
-                    });
-                });
+                this.mobileMenuToggle.addEventListener('click', () => this.openMobileMenu());
+                this.mobileMenuClose.addEventListener('click', () => this.closeMobileMenu());
+                this.mobileNavOverlay.addEventListener('click', () => this.closeMobileMenu());
+                this.mobileNavLinks.forEach(link => link.addEventListener('click', () => this.closeMobileMenu()));
             }
 
-            openMobileMenu() {
-                this.mobileNavOverlay.classList.add('active');
-                this.mobileNavMenu.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-
-            closeMobileMenu() {
-                this.mobileNavOverlay.classList.remove('active');
-                this.mobileNavMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            }
+            openMobileMenu() { this.mobileNavOverlay.classList.add('active'); this.mobileNavMenu.classList.add('active'); document.body.style.overflow = 'hidden'; }
+            closeMobileMenu() { this.mobileNavOverlay.classList.remove('active'); this.mobileNavMenu.classList.remove('active'); document.body.style.overflow = ''; }
             
             showToast(message, type = 'info', duration = 3000) {
-                this.toast.textContent = '';
-                this.toast.className = 'toast show';
-                this.toast.classList.add(type);
-
-                let iconClass = '';
+                this.toast.textContent = ''; this.toast.className = 'toast show'; this.toast.classList.add(type);
+                let iconClass = 'fas fa-info-circle';
                 if (type === 'success') iconClass = 'fas fa-check-circle';
                 else if (type === 'error') iconClass = 'fas fa-times-circle';
                 else if (type === 'warning') iconClass = 'fas fa-exclamation-triangle';
-                else iconClass = 'fas fa-info-circle';
-
-                const iconElement = document.createElement('i');
-                iconElement.className = iconClass;
-                this.toast.appendChild(iconElement);
-
-                const textNode = document.createTextNode(' ' + message);
-                this.toast.appendChild(textNode);
-                
-                setTimeout(() => {
-                    this.toast.classList.remove('show');
-                }, duration);
-            }
-            
-            debounce(func, wait) {
-                let timeout;
-                return function executedFunction(...args) {
-                    const later = () => {
-                        clearTimeout(timeout);
-                        func(...args);
-                    };
-                    clearTimeout(timeout);
-                    timeout = setTimeout(later, wait);
-                };
+                const iconElement = document.createElement('i'); iconElement.className = iconClass; this.toast.appendChild(iconElement);
+                this.toast.appendChild(document.createTextNode(' ' + message));
+                setTimeout(() => this.toast.classList.remove('show'), duration);
             }
             
             initializeKeyboardNavigation() {
                 document.addEventListener('keydown', (e) => {
-                    if (e.key.toLowerCase() === 'k' && (e.ctrlKey || e.metaKey)) {
-                        e.preventDefault();
-                        this.themeToggle.click();
-                    }
-                    
-                    if (e.key.toLowerCase() === 'l' && (e.ctrlKey || e.metaKey)) {
-                        e.preventDefault();
-                        this.languageToggle.click();
-                    }
-                    if (e.key === 'Escape' && this.mobileNavMenu.classList.contains('active')) {
-                        this.closeMobileMenu();
-                    }
+                    // Penanganan Command Palette dipindahkan ke methodnya sendiri untuk menghindari konflik
+                    if (e.key.toLowerCase() === 'l' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); this.languageToggle.click(); }
+                    if (e.key === 'Escape' && this.mobileNavMenu.classList.contains('active')) this.closeMobileMenu();
                 });
             }
 
-            // --- New Interactive UI Features ---
             initializeTypingEffect() {
                 const currentLang = localStorage.getItem('language') || 'en';
                 const originalSubtitle = this.translations[currentLang].heroSubtitleText;
                 const originalDescriptionEN = this.translations.en.heroDescriptionTextEN;
                 const originalDescriptionID = this.translations.id.heroDescriptionTextID;
-
-                this.heroSubtitle.innerHTML = '';
-                this.heroDescriptionEN.innerHTML = '';
-                this.heroDescriptionID.innerHTML = '';
-
+                this.heroSubtitle.innerHTML = ''; this.heroDescriptionEN.innerHTML = ''; this.heroDescriptionID.innerHTML = '';
                 const typeText = (element, text, delay = 50, callback) => {
-                    let i = 0;
-                    element.style.opacity = 1;
+                    let i = 0; element.style.opacity = 1;
                     const typingInterval = setInterval(() => {
                         if (i < text.length) {
-                            // Append character by character, ensuring HTML tags are handled
                             const char = text.charAt(i);
                             if (char === '<') {
-                                // Find end of tag
                                 const endIndex = text.indexOf('>', i);
-                                if (endIndex !== -1) {
-                                    element.innerHTML += text.substring(i, endIndex + 1);
-                                    i = endIndex + 1;
-                                } else {
-                                    element.innerHTML += char;
-                                    i++;
-                                }
-                            } else {
-                                element.innerHTML += char;
-                                i++;
-                            }
-                        } else {
-                            clearInterval(typingInterval);
-                            if (callback) callback();
-                        }
+                                if (endIndex !== -1) { element.innerHTML += text.substring(i, endIndex + 1); i = endIndex + 1; } 
+                                else { element.innerHTML += char; i++; }
+                            } else { element.innerHTML += char; i++; }
+                        } else { clearInterval(typingInterval); if (callback) callback(); }
                     }, delay);
                 };
-
-                // Delay typing effect until after initial fadeInUp animation
                 setTimeout(() => {
                     typeText(this.heroSubtitle, originalSubtitle, 50, () => {
-                        if (currentLang === 'en') {
-                            typeText(this.heroDescriptionEN, originalDescriptionEN, 30);
-                        } else {
-                            typeText(this.heroDescriptionID, originalDescriptionID, 30);
-                        }
+                        if (currentLang === 'en') typeText(this.heroDescriptionEN, originalDescriptionEN, 30);
+                        else typeText(this.heroDescriptionID, originalDescriptionID, 30);
                     });
-                }, 1500); // Adjust this delay based on your hero's fadeInUp animation duration
+                }, 1500);
             }
-
 
             initializeHeroParallax() {
                 window.addEventListener('scroll', () => {
                     const scrolled = window.pageYOffset;
-                    const hero = document.querySelector('.hero');
-                    if (!hero) return;
-
+                    const hero = document.querySelector('.hero'); if (!hero) return;
                     const heroHeight = hero.offsetHeight;
-
                     if (scrolled <= heroHeight) {
-                        // Parallax for text elements within hero
                         this.heroTitle.style.transform = `translateY(${scrolled * 0.3}px)`;
                         this.heroSubtitle.style.transform = `translateY(${scrolled * 0.2}px)`;
                         this.heroDescriptionEN.style.transform = `translateY(${scrolled * 0.1}px)`;
@@ -2309,18 +2135,168 @@
             }
 
             initializeScrollIndicatorBehavior() {
-                window.addEventListener('scroll', this.debounce(() => {
-                    const scrollPosition = window.pageYOffset;
-                    const documentHeight = document.documentElement.scrollHeight;
-                    const windowHeight = window.innerHeight;
-
-                    // Change arrow direction if near bottom
-                    if (scrollPosition + windowHeight >= documentHeight - 100) { // 100px from bottom
-                        this.scrollIndicator.className = 'fas fa-chevron-up';
-                    } else {
-                        this.scrollIndicator.className = 'fas fa-chevron-down';
-                    }
+                const debounce = (func, wait) => { let timeout; return function(...args) { clearTimeout(timeout); timeout = setTimeout(() => func.apply(this, args), wait); }; };
+                window.addEventListener('scroll', debounce(() => {
+                    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) { this.scrollIndicator.className = 'fas fa-chevron-up'; } 
+                    else { this.scrollIndicator.className = 'fas fa-chevron-down'; }
                 }, 100));
+            }
+
+            // --- [FITUR BARU] ---
+            initializeCustomCursor() {
+                const cursor = document.querySelector('.cursor');
+                window.addEventListener('mousemove', e => {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                });
+                // Update cursor color based on theme
+                this.updateCursorColor();
+            }
+
+            updateCursorColor() {
+                const cursor = document.querySelector('.cursor');
+                const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
+                cursor.style.backgroundColor = theme === 'dark' ? '#ffffff' : '#000000';
+                cursor.style.width = '12px';
+                cursor.style.height = '12px';
+                cursor.style.borderRadius = '50%';
+            }
+
+            initializeMagneticButtons() {
+                const magneticButtons = document.querySelectorAll('.magnetic-button');
+                magneticButtons.forEach(button => {
+                    button.addEventListener('mousemove', function(e) {
+                        const rect = this.getBoundingClientRect();
+                        const x = e.clientX - rect.left - rect.width / 2;
+                        const y = e.clientY - rect.top - rect.height / 2;
+                        this.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
+                        this.style.transition = 'transform 0.1s';
+                    });
+                    button.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translate(0,0)';
+                        this.style.transition = 'transform 0.3s';
+                    });
+                });
+            }
+
+            initializeTiltEffect() {
+                VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+                    max: 15,
+                    speed: 400,
+                    glare: true,
+                    "max-glare": 0.2,
+                });
+            }
+
+            initializeDynamicGlow() {
+                const cards = document.querySelectorAll('.project-card');
+                cards.forEach(card => {
+                    card.addEventListener('mousemove', e => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        card.style.setProperty('--mouse-x', `${x}px`);
+                        card.style.setProperty('--mouse-y', `${y}px`);
+                    });
+                });
+            }
+
+            initializeCommandPalette() {
+                const overlay = document.getElementById('commandPaletteOverlay');
+                const input = document.getElementById('commandPaletteInput');
+                const list = document.getElementById('commandPaletteList');
+                let selectedIndex = -1;
+
+                const commands = [
+                    { name: 'Home', action: () => this.scrollToSection('home'), icon: 'fa-home', kbd: 'G H' },
+                    { name: 'About', action: () => this.scrollToSection('about'), icon: 'fa-user', kbd: 'G A' },
+                    { name: 'Projects', action: () => this.scrollToSection('projects'), icon: 'fa-code', kbd: 'G P' },
+                    { name: 'Contact', action: () => this.scrollToSection('contact'), icon: 'fa-envelope', kbd: 'G C' },
+                    { name: 'Toggle Theme', action: () => this.themeToggle.click(), icon: 'fa-adjust', kbd: 'T T' },
+                    { name: 'Toggle Language', action: () => this.languageToggle.click(), icon: 'fa-globe', kbd: 'T L' },
+                    { name: 'View Source', action: () => window.open('https://github.com/aesctrlz/aesctrlz.github.io', '_blank'), icon: 'fa-brands fa-github', kbd: 'V S' }
+                ];
+
+                const renderCommands = (filter = '') => {
+                    list.innerHTML = '';
+                    const filteredCommands = commands.filter(cmd => cmd.name.toLowerCase().includes(filter.toLowerCase()));
+                    
+                    filteredCommands.forEach((cmd, index) => {
+                        const item = document.createElement('li');
+                        item.className = 'command-palette-item';
+                        item.innerHTML = `<i class="fas ${cmd.icon}"></i> ${cmd.name} <kbd>${cmd.kbd}</kbd>`;
+                        item.addEventListener('click', () => {
+                            cmd.action();
+                            this.closeCommandPalette();
+                        });
+                        list.appendChild(item);
+                    });
+                    selectedIndex = -1;
+                };
+
+                const updateSelection = () => {
+                    const items = list.querySelectorAll('.command-palette-item');
+                    items.forEach((item, index) => {
+                        item.classList.toggle('selected', index === selectedIndex);
+                    });
+                };
+
+                this.openCommandPalette = () => {
+                    overlay.classList.add('visible');
+                    input.focus();
+                    renderCommands();
+                };
+
+                this.closeCommandPalette = () => {
+                    overlay.classList.remove('visible');
+                    input.value = '';
+                };
+                
+                this.scrollToSection = (id) => {
+                    const target = document.getElementById(id);
+                    if (target) {
+                        const offsetTop = target.offsetTop - this.navigation.offsetHeight - 20;
+                        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                    }
+                };
+
+                document.addEventListener('keydown', e => {
+                    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                        e.preventDefault();
+                        overlay.classList.contains('visible') ? this.closeCommandPalette() : this.openCommandPalette();
+                    }
+                    if (overlay.classList.contains('visible')) {
+                        const items = list.querySelectorAll('.command-palette-item');
+                        if (e.key === 'ArrowDown') {
+                            e.preventDefault();
+                            selectedIndex = (selectedIndex + 1) % items.length;
+                            updateSelection();
+                        } else if (e.key === 'ArrowUp') {
+                            e.preventDefault();
+                            selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+                            updateSelection();
+                        } else if (e.key === 'Enter' && selectedIndex > -1) {
+                            items[selectedIndex].click();
+                        } else if (e.key === 'Escape') {
+                            this.closeCommandPalette();
+                        }
+                    }
+                });
+
+                input.addEventListener('input', () => renderCommands(input.value));
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) this.closeCommandPalette();
+                });
+            }
+
+            initializeScrollProgress() {
+                const progressBar = document.getElementById('scroll-progress-bar');
+                window.addEventListener('scroll', () => {
+                    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const scrollPercent = (scrollTop / scrollHeight) * 100;
+                    progressBar.style.width = `${scrollPercent}%`;
+                });
             }
         }
         
@@ -2344,28 +2320,17 @@
                 
                 if (konamiCode.toString() === konami.toString()) {
                     website.showToast('🎉 Easter egg activated! You found the secret!', 'success', 5000);
-                    // Add some fun visual effect
-                    document.body.style.animation = 'rainbow 2s ease-in-out';
+                    // [FITUR BARU] Enhanced Easter Egg Effect
+                    document.body.style.transition = 'filter 1s';
+                    document.body.style.filter = 'invert(1) hue-rotate(180deg)';
                     setTimeout(() => {
-                        document.body.style.animation = '';
+                        document.body.style.filter = '';
                     }, 2000);
                     konamiCode = []; // Reset konami code
                 }
             });
         });
         
-        // Add rainbow animation for easter egg
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes rainbow {
-                0% { filter: hue-rotate(0deg); }
-                25% { filter: hue-rotate(90deg); }
-                50% { filter: hue-rotate(180deg); }
-                75% { filter: hue-rotate(270deg); }
-                100% { filter: hue-rotate(360deg); }
-            }
-        `;
-        document.head.appendChild(style);
         
         // Service Worker registration for PWA functionality
         if ('serviceWorker' in navigator) {
