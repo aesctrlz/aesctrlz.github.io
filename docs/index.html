@@ -31,8 +31,11 @@
     <meta name="twitter:image" content="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/ctrl-z.png">
     <meta name="twitter:creator" content="@aesneverhere">
     
-    <!-- Favicon Diperbarui -->
-    <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/favicon.svg">
+    <!-- [PERBAIKAN] Favicon Diperbarui dengan Ukuran Berbeda -->
+    <link rel="icon" href="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/favicon-180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/favicon-16.png">
     
     <!-- Theme Color -->
     <meta name="theme-color" content="#b39ddb">
@@ -118,7 +121,6 @@
             --z-overlay: 1040;
             --z-modal: 1050;
             --z-tooltip: 1070;
-            --cursor-color: #000000; /* [PERUBAHAN] Variabel warna kursor */
         }
         
         /* CSS Reset and Base Styles */
@@ -135,6 +137,11 @@
             height: 100%;
         }
         
+        /* [PERBAIKAN] Menambahkan background-color pada html untuk mencegah glitch putih */
+        html.dark {
+            background-color: var(--bg-dark);
+        }
+
         body {
             font-family: var(--font-family);
             margin: 0;
@@ -146,29 +153,6 @@
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
             font-feature-settings: "liga", "kern";
-            cursor: none; /* Sembunyikan kursor default */
-        }
-
-        /* [PERUBAHAN] Custom Cursor Styles Disederhanakan */
-        .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background-color: var(--cursor-color);
-            border-radius: 50%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-            transition: transform 0.2s, width 0.3s, height 0.3s, background-color 0.3s;
-            mix-blend-mode: difference; /* Efek keren saat melewati elemen lain */
-        }
-
-        body:has(a:hover, button:hover, .toggle:hover) .cursor {
-            transform: translate(-50%, -50%) scale(1.5);
-            background-color: transparent;
-            border: 2px solid var(--cursor-color);
         }
         
         /* Animated Background */
@@ -187,11 +171,10 @@
             position: absolute;
             border-radius: 50%;
             background: linear-gradient(45deg, var(--primary-color), var(--primary-hover));
-            opacity: 0.08; /* Dibuat lebih subtle */
+            opacity: 0.08;
             animation: float-particles 20s linear infinite;
         }
         
-        /* Menambahkan variasi bentuk dan ukuran partikel */
         .bg-particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: -2s; animation-duration: 15s; }
         .bg-particle:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: -4s; animation-duration: 18s; }
         .bg-particle:nth-child(3) { width: 8px; height: 8px; left: 30%; animation-delay: -6s; animation-duration: 22s; }
@@ -202,9 +185,8 @@
         .bg-particle:nth-child(8) { width: 4px; height: 4px; left: 80%; animation-delay: -16s; animation-duration: 21s; }
         .bg-particle:nth-child(9) { width: 5px; height: 5px; left: 90%; animation-delay: -18s; animation-duration: 14s; }
         .bg-particle:nth-child(10) { width: 8px; height: 8px; left: 15%; animation-delay: -20s; animation-duration: 23s; }
-        /* Menambahkan beberapa partikel berbentuk persegi */
-        .bg-particle:nth-child(11) { width: 7px; height: 7px; left: 25%; top: 0; border-radius: 2px; /* Bentuk persegi */ animation-delay: -5s; animation-duration: 25s; background: linear-gradient(45deg, var(--accent-color), var(--accent-hover)); }
-        .bg-particle:nth-child(12) { width: 5px; height: 5px; left: 75%; top: 0; border-radius: 50%; /* Bentuk lingkaran */ animation-delay: -15s; animation-duration: 16s; background: linear-gradient(45deg, var(--secondary-color), var(--primary-light)); }
+        .bg-particle:nth-child(11) { width: 7px; height: 7px; left: 25%; top: 0; border-radius: 2px; animation-delay: -5s; animation-duration: 25s; background: linear-gradient(45deg, var(--accent-color), var(--accent-hover)); }
+        .bg-particle:nth-child(12) { width: 5px; height: 5px; left: 75%; top: 0; border-radius: 50%; animation-delay: -15s; animation-duration: 16s; background: linear-gradient(45deg, var(--secondary-color), var(--primary-light)); }
         
         @keyframes float-particles {
             0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
@@ -213,20 +195,17 @@
             100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
         
-        /* [FITUR BARU] Keyframe untuk animasi gradien latar */
         @keyframes gradient-animation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
         
-        /* Theme Styles */
         body.light {
             background: linear-gradient(-45deg, #f8faff, #e1bee7, #f3f4f6, #ffffff);
             background-size: 400% 400%;
             animation: gradient-animation 20s ease infinite;
             color: var(--text-primary);
-            --cursor-color: #000000;
         }
         
         body.dark {
@@ -234,10 +213,8 @@
             background-size: 400% 400%;
             animation: gradient-animation 20s ease infinite;
             color: var(--text-dark);
-            --cursor-color: #ffffff;
         }
         
-        /* Skip to Content Link for Accessibility */
         .skip-link {
             position: absolute;
             top: -40px;
@@ -256,8 +233,7 @@
             top: 6px;
         }
         
-        /* Enhanced Loading Screen */
-        .loading-screen { /* Mengubah dari .loading-spinner ke .loading-screen */
+        .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
@@ -313,15 +289,9 @@
         }
         
         @keyframes spin {
-            0% { 
-                transform: rotate(0deg) scale(1);
-            }
-            50% {
-                transform: rotate(180deg) scale(1.1);
-            }
-            100% { 
-                transform: rotate(360deg) scale(1);
-            }
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
         }
         
         @keyframes pulse-text {
@@ -336,7 +306,6 @@
             80%, 100% { content: '...'; }
         }
         
-        /* Navigation */
         .navigation {
             position: fixed;
             top: 0;
@@ -349,6 +318,9 @@
             padding: var(--spacing-sm) 0;
             transition: transform var(--transition-speed), background var(--transition-speed);
             border-bottom: 1px solid var(--border-light);
+            /* [PERBAIKAN] Mendorong rendering GPU untuk mencegah glitch */
+            transform: translateZ(0);
+            will-change: transform;
         }
         
         .dark .navigation {
@@ -357,7 +329,7 @@
         }
         
         .navigation.hidden {
-            transform: translateY(-100%);
+            transform: translateY(-100%) translateZ(0);
         }
         
         .nav-container {
@@ -397,7 +369,7 @@
             font-weight: 500;
         }
         
-        .nav-link:hover, .nav-link.active { /* Menambahkan .active */
+        .nav-link:hover, .nav-link.active {
             color: var(--primary-color);
         }
         
@@ -413,11 +385,10 @@
             border-radius: 1px;
         }
         
-        .nav-link:hover::after, .nav-link.active::after { /* Menambahkan .active */
+        .nav-link:hover::after, .nav-link.active::after {
             width: 100%;
         }
         
-        /* Mobile Menu */
         .mobile-menu-toggle {
             display: none;
             background: none;
@@ -438,7 +409,6 @@
             background: var(--bg-dark-secondary);
         }
 
-        /* Mobile menu overlay styles */
         .mobile-nav-overlay {
             position: fixed;
             top: 0;
@@ -447,7 +417,7 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
             z-index: var(--z-overlay);
-            display: none; /* Hidden by default */
+            display: none;
             opacity: 0;
             transition: opacity var(--transition-speed) ease-in-out;
         }
@@ -460,7 +430,7 @@
         .mobile-nav-menu {
             position: fixed;
             top: 0;
-            right: -300px; /* Start off-screen */
+            right: -300px;
             width: 280px;
             height: 100%;
             background: var(--bg-light);
@@ -478,7 +448,7 @@
         }
 
         .mobile-nav-menu.active {
-            right: 0; /* Slide in */
+            right: 0;
         }
 
         .mobile-nav-menu li {
@@ -516,7 +486,6 @@
             color: var(--text-dark-secondary);
         }
         
-        /* Hero Section */
         .hero {
             display: flex;
             flex-direction: column;
@@ -558,10 +527,10 @@
             color: var(--text-secondary);
             font-weight: 300;
             line-height: 1.4;
-            display: flex; /* Untuk ikon inline */
-            align-items: center; /* Untuk ikon inline */
-            justify-content: center; /* Untuk ikon inline */
-            gap: 0.5rem; /* Untuk ikon inline */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
         
         .dark .hero-subtitle {
@@ -577,18 +546,18 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            display: flex; /* Untuk ikon inline */
-            align-items: center; /* Untuk ikon inline */
-            justify-content: center; /* Untuk ikon inline */
-            gap: 0.5rem; /* Untuk ikon inline */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
         
         .hero-subtitle i,
         .hero-description i,
         .about-text i,
         .contact-text i {
-            color: var(--primary-color); /* Warna ikon adaptif */
-            font-size: 1.2em; /* Ukuran ikon yang sedikit lebih besar */
+            color: var(--primary-color);
+            font-size: 1.2em;
         }
 
         .hero-buttons {
@@ -658,7 +627,6 @@
             transform: translateY(-2px);
         }
         
-        /* Scroll Indicator */
         .scroll-indicator {
             position: absolute;
             bottom: var(--spacing-md);
@@ -671,7 +639,7 @@
         .scroll-indicator i {
             font-size: 2rem;
             color: var(--primary-color);
-            transition: transform 0.3s ease, color 0.3s ease; /* Transisi untuk perubahan ikon */
+            transition: transform 0.3s ease, color 0.3s ease;
         }
         
         @keyframes bounce {
@@ -680,7 +648,6 @@
             60% { transform: translateX(-50%) translateY(-5px); }
         }
         
-        /* [PERUBAHAN] Toggle Buttons Container */
         .toggle-container {
             position: fixed;
             bottom: var(--spacing-md);
@@ -729,7 +696,6 @@
             outline-offset: 2px;
         }
         
-        /* Section Styles */
         .section {
             padding: var(--spacing-xl) var(--spacing-md);
             max-width: var(--max-width);
@@ -745,7 +711,6 @@
             transform: translateY(0);
         }
         
-        /* Fix overlapping issues */
         .section:not(.hero) {
             margin-top: var(--spacing-lg);
         }
@@ -765,7 +730,7 @@
             margin-bottom: var(--spacing-lg);
             position: relative;
             font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.05); /* UI Sempurnaan */
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
             transform: translateY(100%);
             transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
@@ -786,7 +751,6 @@
             border-radius: 2px;
         }
         
-        /* About Section */
         .about {
             text-align: center;
         }
@@ -801,10 +765,10 @@
             line-height: 1.8;
             margin-bottom: var(--spacing-md);
             color: var(--text-secondary);
-            display: flex; /* Untuk ikon inline */
-            align-items: center; /* Untuk ikon inline */
-            justify-content: center; /* Untuk ikon inline */
-            gap: 0.5rem; /* Untuk ikon inline */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
         
         .dark .about-text {
@@ -876,7 +840,6 @@
             margin-top: var(--spacing-xs);
         }
         
-        /* Skills Section */
         .skills {
             background: var(--glass-light);
             backdrop-filter: blur(20px);
@@ -933,10 +896,9 @@
             color: white;
         }
         
-        /* Projects Section */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted size */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: var(--spacing-lg);
             margin-top: var(--spacing-lg);
         }
@@ -955,7 +917,6 @@
             --mouse-y: 50%;
         }
         
-        /* [FITUR BARU] Dynamic Glow Effect */
         .project-card::before {
             content: "";
             position: absolute;
@@ -993,7 +954,7 @@
         
         .project-image {
             width: 100%;
-            height: 180px; /* Adjusted size */
+            height: 180px;
             overflow: hidden;
             position: relative;
         }
@@ -1029,7 +990,7 @@
             line-height: 1.6;
             margin-bottom: var(--spacing-md);
             font-size: 0.95rem; 
-            min-height: 110px; /* UI Sempurnaan: Menyamakan tinggi kartu */
+            min-height: 110px;
         }
         
         .dark .project-description {
@@ -1062,7 +1023,6 @@
             text-align: center;
         }
         
-        /* Devices Section */
         .devices {
             background: var(--glass-light);
             backdrop-filter: blur(20px);
@@ -1123,7 +1083,7 @@
             font-size: 3rem;
             color: var(--primary-color);
             margin-bottom: var(--spacing-sm);
-            transition: transform 0.3s ease; /* Animasi ikon */
+            transition: transform 0.3s ease;
         }
         .device-card:hover .device-icon {
             transform: scale(1.1) rotate(5deg);
@@ -1150,7 +1110,6 @@
             color: var(--text-dark-secondary);
         }
         
-        /* Quote Section */
         .quote {
             text-align: center;
             padding: var(--spacing-xxl) var(--spacing-md);
@@ -1173,7 +1132,6 @@
             background-size: 30px 30px;
             animation: float 15s ease-in-out infinite;
         }
-        /* Menambahkan ikon kutipan */
         .quote blockquote::before,
         .quote blockquote::after {
             font-family: "Font Awesome 6 Free";
@@ -1185,12 +1143,12 @@
             transition: all 0.5s ease;
         }
         .quote blockquote::before {
-            content: "\f10d"; /* fa-quote-left */
+            content: "\f10d";
             top: 10px;
             left: 20px;
         }
         .quote blockquote::after {
-            content: "\f10e"; /* fa-quote-right */
+            content: "\f10e";
             bottom: 10px;
             right: 20px;
         }
@@ -1208,7 +1166,7 @@
             position: relative;
             z-index: 1;
             margin: 0;
-            padding: 0 50px; /* Memberi ruang untuk ikon kutipan */
+            padding: 0 50px;
         }
         
         .quote-author {
@@ -1219,7 +1177,6 @@
             z-index: 1;
         }
         
-        /* Contact Section */
         .contact {
             text-align: center;
         }
@@ -1234,10 +1191,10 @@
             line-height: 1.8;
             margin-bottom: var(--spacing-lg);
             color: var(--text-secondary);
-            display: flex; /* Untuk ikon inline */
-            align-items: center; /* Untuk ikon inline */
-            justify-content: center; /* Untuk ikon inline */
-            gap: 0.5rem; /* Untuk ikon inline */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
         
         .dark .contact-text {
@@ -1282,7 +1239,6 @@
             font-size: 1.2rem;
         }
         
-        /* Footer */
         footer {
             background: var(--glass-light);
             backdrop-filter: blur(20px);
@@ -1324,16 +1280,9 @@
             50% { transform: scale(1.1); }
         }
         
-        /* Animations */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         @keyframes fadeIn {
@@ -1342,25 +1291,13 @@
         }
         
         @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            from { opacity: 0; transform: translateY(50px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
         
         @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
         
         @keyframes shimmer {
@@ -1369,15 +1306,10 @@
         }
         
         @keyframes glow {
-            0%, 100% { 
-                box-shadow: 0 0 20px rgba(179, 157, 219, 0.3);
-            }
-            50% { 
-                box-shadow: 0 0 30px rgba(179, 157, 219, 0.6);
-            }
+            0%, 100% { box-shadow: 0 0 20px rgba(179, 157, 219, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(179, 157, 219, 0.6); }
         }
         
-        /* Notification Toast */
         .toast {
             position: fixed;
             bottom: var(--spacing-md);
@@ -1387,11 +1319,11 @@
             padding: var(--spacing-sm) var(--spacing-md);
             border-radius: var(--border-radius);
             box-shadow: 0 4px 15px var(--shadow-medium);
-            z-index: var(--z-tooltip); /* Menggunakan z-tooltip untuk toast */
+            z-index: var(--z-tooltip);
             transform: translateX(400px);
             transition: transform var(--transition-speed);
             font-weight: 500;
-            display: flex; /* Untuk ikon */
+            display: flex;
             align-items: center;
             gap: var(--spacing-xs);
         }
@@ -1404,7 +1336,6 @@
             transform: translateX(0);
         }
 
-        /* [FITUR BARU] Command Palette */
         .command-palette-overlay {
             position: fixed;
             top: 0;
@@ -1493,7 +1424,6 @@
             border-color: var(--border-dark);
         }
 
-        /* [FITUR BARU] Scroll Progress Bar */
         #scroll-progress-bar {
             position: fixed;
             top: 0;
@@ -1505,71 +1435,123 @@
             transition: width 0.1s linear;
         }
         
-        /* Responsive Design */
+        /* Gemini Modal Styles */
+        .gemini-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: var(--z-modal);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .gemini-modal-overlay.visible {
+            display: flex;
+            opacity: 1;
+        }
+        .gemini-modal {
+            background: var(--bg-light);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 10px 40px var(--shadow-dark);
+            width: 90%;
+            max-width: 550px;
+            z-index: calc(var(--z-modal) + 1);
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+        .gemini-modal-overlay.visible .gemini-modal {
+            transform: scale(1);
+        }
+        .dark .gemini-modal {
+            background: var(--bg-dark-secondary);
+        }
+        .gemini-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: var(--spacing-sm);
+        }
+        .dark .gemini-modal-header {
+            border-bottom-color: var(--border-dark);
+        }
+        .gemini-modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .gemini-modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+        .gemini-modal-content textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--border-light);
+            background: var(--bg-light-secondary);
+            color: inherit;
+            font-family: inherit;
+            resize: vertical;
+            margin-bottom: var(--spacing-md);
+        }
+        .dark .gemini-modal-content textarea {
+            background: var(--bg-dark);
+            border-color: var(--border-dark);
+        }
+        .gemini-response {
+            margin-top: var(--spacing-md);
+            padding: var(--spacing-sm);
+            background: var(--secondary-color);
+            border-radius: var(--border-radius-sm);
+            min-height: 100px;
+            white-space: pre-wrap;
+            font-family: var(--font-mono);
+        }
+        .dark .gemini-response {
+            background: var(--bg-dark);
+        }
+        .gemini-spinner {
+            display: none;
+            margin: 20px auto;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(179, 157, 219, 0.3);
+            border-left-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
         @media (max-width: 768px) {
-            .nav-menu {
-                display: none; /* Sembunyikan menu desktop */
-            }
-            
-            .mobile-menu-toggle {
-                display: block; /* Tampilkan tombol toggle mobile */
-            }
-            
-            /* [PERUBAHAN] Posisi toggle di mobile */
-            .toggle-container {
-                bottom: var(--spacing-sm);
-                right: var(--spacing-sm);
-            }
-            
-            .hero {
-                padding: var(--spacing-lg) var(--spacing-sm);
-                min-height: calc(100vh - 60px);
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 300px;
-                margin: 0 auto;
-            }
-            
-            .projects-grid,
-            .devices-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: var(--spacing-sm);
-            }
-            
-            .social-links {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .social-link {
-                width: 100%;
-                max-width: 250px;
-                justify-content: center;
-            }
+            .nav-menu { display: none; }
+            .mobile-menu-toggle { display: block; }
+            .toggle-container { bottom: var(--spacing-sm); right: var(--spacing-sm); }
+            .hero { padding: var(--spacing-lg) var(--spacing-sm); min-height: calc(100vh - 60px); }
+            .hero-buttons { flex-direction: column; align-items: stretch; }
+            .btn { width: 100%; max-width: 300px; margin: 0 auto; }
+            .projects-grid, .devices-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: var(--spacing-sm); }
+            .social-links { flex-direction: column; align-items: center; }
+            .social-link { width: 100%; max-width: 250px; justify-content: center; }
         }
         
         @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
+            .stats-grid { grid-template-columns: 1fr; }
+            .skills-grid { grid-template-columns: 1fr; }
         }
         
-        /* High contrast mode support */
         @media (prefers-contrast: high) {
             :root {
                 --shadow-light: rgba(0, 0, 0, 0.3);
@@ -1578,7 +1560,6 @@
             }
         }
         
-        /* Reduced motion support */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -1588,44 +1569,21 @@
             }
         }
         
-        /* Print styles */
         @media print {
-            .navigation,
-            .toggle-container,
-            .hero-buttons,
-            .scroll-indicator,
-            .mobile-menu-toggle,
-            .mobile-nav-overlay,
-            .mobile-nav-menu {
-                display: none !important; /* Sembunyikan elemen non-cetak */
+            .navigation, .toggle-container, .hero-buttons, .scroll-indicator, .mobile-menu-toggle, .mobile-nav-overlay, .mobile-nav-menu {
+                display: none !important;
             }
-            
-            .hero {
-                min-height: auto;
-                padding: var(--spacing-md);
-            }
-            
-            .section {
-                page-break-inside: avoid;
-            }
+            .hero { min-height: auto; padding: var(--spacing-md); }
+            .section { page-break-inside: avoid; }
         }
         
-        /* Focus styles for better accessibility */
         *:focus-visible {
             outline: 2px solid var(--primary-color);
             outline-offset: 2px;
         }
         
-        /* Selection styles */
-        ::selection {
-            background: var(--primary-color);
-            color: white;
-        }
-        
-        ::-moz-selection {
-            background: var(--primary-color);
-            color: white;
-        }
+        ::selection { background: var(--primary-color); color: white; }
+        ::-moz-selection { background: var(--primary-color); color: white; }
     </style>
 </head>
 <body class="light">
@@ -1635,11 +1593,7 @@
     |                           BAGIAN HTML                          |
     ==================================================================
     -->
-
-    <!-- [FITUR BARU] Custom Cursor Elements -->
-    <div class="cursor"></div>
     
-    <!-- [FITUR BARU] Scroll Progress Bar -->
     <div id="scroll-progress-bar"></div>
 
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -1756,12 +1710,10 @@
             <div class="projects-grid">
                 <div class="project-card" data-tilt>
                     <div class="project-image">
-                        <!-- GAMBAR DIPERBARUI -->
-                        <img src="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/aes-co.png" alt="AES-CO project dashboard" loading="lazy">
+                        <img src="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/aes-co.png" alt="Dasbor proyek AES-CO" loading="lazy">
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">AES-CO</h3>
-                        <!-- DESKRIPSI DISEMPURNAKAN -->
                         <p class="project-description">
                             A collection of modular tools and automation scripts designed to solve specific problems and streamline complex workflows, all open-sourced.
                         </p>
@@ -1775,12 +1727,10 @@
                 
                 <div class="project-card" data-tilt>
                     <div class="project-image">
-                        <!-- GAMBAR DIPERBARUI -->
-                        <img src="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/ctrl-z.png" alt="ctrl-z verse project interface" loading="lazy">
+                        <img src="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/ctrl-z.png" alt="Antarmuka proyek ctrl-z verse" loading="lazy">
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">ctrl-z verse</h3>
-                        <!-- DESKRIPSI DISEMPURNAKAN -->
                         <p class="project-description">
                             The spiritual successor to AES-CO, embodying resilience and creativity. A testament to the unbreakable spirit of development, focusing on robust and innovative solutions.
                         </p>
@@ -1820,7 +1770,14 @@
                     <a href="https://t.me/aesneverhere" class="social-link magnetic-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i> Telegram Profile</a>
                     <a href="https://t.me/aes_hub" class="social-link magnetic-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i> Telegram Channel</a>
                     <a href="mailto:aesh.n@outlook.com" class="social-link magnetic-button"><i class="fas fa-envelope"></i> Personal Email</a>
-                    <a href="mailto:hello@zverse.my.id" class="social-link magnetic-button"><i class="fas fa-building"></i> Org Email</a>
+                    <!-- [PERBAIKAN] Teks email organisasi diubah -->
+                    <a href="mailto:hello@zverse.my.id" class="social-link magnetic-button"><i class="fas fa-building"></i> Project Inquiries</a>
+                </div>
+                <!-- Tombol Gemini Ditambahkan -->
+                <div class="hero-buttons" style="margin-top: var(--spacing-lg);">
+                    <button class="btn btn-primary magnetic-button" id="askGeminiBtn">
+                        <i class="fas fa-lightbulb"></i> Tanya Gemini untuk Ide Proyek ✨
+                    </button>
                 </div>
             </div>
         </section>
@@ -1836,11 +1793,29 @@
     
     <div class="toast" id="toast"></div>
 
-    <!-- [FITUR BARU] Command Palette HTML -->
     <div class="command-palette-overlay" id="commandPaletteOverlay">
         <div class="command-palette" id="commandPalette">
             <input type="text" class="command-palette-input" id="commandPaletteInput" placeholder="Type a command or search...">
             <ul class="command-palette-list" id="commandPaletteList"></ul>
+        </div>
+    </div>
+
+    <!-- Modal Gemini -->
+    <div class="gemini-modal-overlay" id="geminiModalOverlay">
+        <div class="gemini-modal" id="geminiModal">
+            <div class="gemini-modal-header">
+                <h3 class="gemini-modal-title">✨ Dapatkan Ide Proyek dari Gemini</h3>
+                <button class="gemini-modal-close" id="geminiModalClose">&times;</button>
+            </div>
+            <div class="gemini-modal-content">
+                <p>Masukkan keahlian dan minat Anda (misalnya: "JavaScript, React, game development"), dan biarkan Gemini memberikan ide proyek yang keren untuk Anda!</p>
+                <textarea id="geminiSkillsInput" placeholder="Contoh: Python, web scraping, data analysis"></textarea>
+                <button class="btn btn-primary" id="generateIdeaBtn" style="width: 100%;">
+                    <i class="fas fa-cogs"></i> Buat Ide
+                </button>
+                <div class="gemini-spinner" id="geminiSpinner"></div>
+                <div class="gemini-response" id="geminiResponse"></div>
+            </div>
         </div>
     </div>
     
@@ -1849,7 +1824,6 @@
     |                         BAGIAN JAVASCRIPT                      |
     ==================================================================
     -->
-    <!-- [FITUR BARU] Vanilla Tilt JS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
 
     <script>
@@ -1868,14 +1842,12 @@
                 this.initializeTypingEffect();
                 this.initializeHeroParallax();
                 this.initializeScrollIndicatorBehavior();
-
-                // [FITUR BARU] Initialize new UI features
-                this.initializeCustomCursor();
                 this.initializeMagneticButtons();
                 this.initializeTiltEffect();
                 this.initializeDynamicGlow();
                 this.initializeCommandPalette();
                 this.initializeScrollProgress();
+                this.initializeGeminiFeature();
             }
             
             initializeElements() {
@@ -1955,11 +1927,11 @@
             setTheme(theme) {
                 document.body.classList.remove('light', 'dark');
                 document.body.classList.add(theme);
+                document.documentElement.classList.toggle('dark', theme === 'dark');
                 this.themeToggle.querySelector('i').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
                 localStorage.setItem('theme', theme);
                 const metaThemeColor = document.querySelector('meta[name="theme-color"]');
                 if (metaThemeColor) metaThemeColor.setAttribute('content', theme === 'dark' ? '#121212' : '#b39ddb');
-                this.updateCursorColor(); // Update cursor when theme changes
             }
             
             initializeLanguage() {
@@ -2046,7 +2018,7 @@
                     setTimeout(() => {
                         this.loadingScreen.classList.add('fade-out');
                         setTimeout(() => { if (this.loadingScreen) this.loadingScreen.style.display = 'none'; }, 800);
-                    }, 1000); // Waktu loading dipercepat sedikit
+                    }, 1000);
                 });
             }
             
@@ -2087,7 +2059,6 @@
             
             initializeKeyboardNavigation() {
                 document.addEventListener('keydown', (e) => {
-                    // Penanganan Command Palette dipindahkan ke methodnya sendiri untuk menghindari konflik
                     if (e.key.toLowerCase() === 'l' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); this.languageToggle.click(); }
                     if (e.key === 'Escape' && this.mobileNavMenu.classList.contains('active')) this.closeMobileMenu();
                 });
@@ -2140,26 +2111,6 @@
                     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) { this.scrollIndicator.className = 'fas fa-chevron-up'; } 
                     else { this.scrollIndicator.className = 'fas fa-chevron-down'; }
                 }, 100));
-            }
-
-            // --- [FITUR BARU] ---
-            initializeCustomCursor() {
-                const cursor = document.querySelector('.cursor');
-                window.addEventListener('mousemove', e => {
-                    cursor.style.left = e.clientX + 'px';
-                    cursor.style.top = e.clientY + 'px';
-                });
-                // Update cursor color based on theme
-                this.updateCursorColor();
-            }
-
-            updateCursorColor() {
-                const cursor = document.querySelector('.cursor');
-                const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
-                cursor.style.backgroundColor = theme === 'dark' ? '#ffffff' : '#000000';
-                cursor.style.width = '12px';
-                cursor.style.height = '12px';
-                cursor.style.borderRadius = '50%';
             }
 
             initializeMagneticButtons() {
@@ -2298,19 +2249,95 @@
                     progressBar.style.width = `${scrollPercent}%`;
                 });
             }
+
+            // [PEMBARUAN] Fungsi untuk memanggil Gemini API melalui backend Vercel
+            async callGeminiAPI(prompt) {
+                const apiUrl = "https://aesctrlz.vercel.app/api/gemini";
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ prompt }) // Mengirim prompt dalam format JSON yang benar
+                    });
+
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    // Asumsikan backend Anda mengembalikan JSON dengan properti 'text' atau 'response'
+                    if (result.text) {
+                        return result.text;
+                    } else if (result.response) {
+                        return result.response;
+                    } else {
+                        console.warn("Unexpected response structure from backend:", result);
+                        // Jika backend mengembalikan teks langsung dalam body JSON
+                        return result;
+                    }
+
+                } catch (error) {
+                    console.error("Error calling backend API:", error);
+                    return `Terjadi kesalahan saat menghubungi backend Anda. Detail: ${error.message}`;
+                }
+            }
+
+            initializeGeminiFeature() {
+                const askGeminiBtn = document.getElementById('askGeminiBtn');
+                const geminiModalOverlay = document.getElementById('geminiModalOverlay');
+                const geminiModalClose = document.getElementById('geminiModalClose');
+                const generateIdeaBtn = document.getElementById('generateIdeaBtn');
+                const geminiSkillsInput = document.getElementById('geminiSkillsInput');
+                const geminiResponse = document.getElementById('geminiResponse');
+                const geminiSpinner = document.getElementById('geminiSpinner');
+
+                askGeminiBtn.addEventListener('click', () => {
+                    geminiModalOverlay.classList.add('visible');
+                });
+
+                geminiModalClose.addEventListener('click', () => {
+                    geminiModalOverlay.classList.remove('visible');
+                });
+
+                geminiModalOverlay.addEventListener('click', (e) => {
+                    if (e.target === geminiModalOverlay) {
+                        geminiModalOverlay.classList.remove('visible');
+                    }
+                });
+
+                generateIdeaBtn.addEventListener('click', async () => {
+                    const skills = geminiSkillsInput.value;
+                    if (!skills.trim()) {
+                        this.showToast("Silakan masukkan keahlian Anda.", "warning");
+                        return;
+                    }
+
+                    geminiSpinner.style.display = 'block';
+                    geminiResponse.textContent = '';
+                    generateIdeaBtn.disabled = true;
+
+                    const prompt = `Act as a friendly and encouraging tech mentor. Based on the following skills and interests: "${skills}", suggest a creative and fun project idea for a developer portfolio. The idea should be described in a few sentences, followed by a list of key features and the suggested tech stack. Make the response engaging and motivational. Respond in Indonesian.`;
+                    
+                    const idea = await this.callGeminiAPI(prompt);
+                    
+                    geminiSpinner.style.display = 'none';
+                    geminiResponse.textContent = idea;
+                    generateIdeaBtn.disabled = false;
+                });
+            }
         }
         
-        // Initialize the website controller when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             const website = new WebsiteController();
             
-            // Add some easter eggs
             console.log('%c🌟 AESWNH - Aes', 'font-size: 2em; color: #b39ddb; font-weight: bold;');
             console.log('%cInterested in the code? Check out the source!', 'color: #666; font-style: italic;');
             
-            // Add konami code easter egg
             let konamiCode = [];
-            const konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // Up, Up, Down, Down, Left, Right, Left, Right, B, A
+            const konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
             
             document.addEventListener('keydown', (e) => {
                 konamiCode.push(e.keyCode);
@@ -2320,19 +2347,16 @@
                 
                 if (konamiCode.toString() === konami.toString()) {
                     website.showToast('🎉 Easter egg activated! You found the secret!', 'success', 5000);
-                    // [FITUR BARU] Enhanced Easter Egg Effect
                     document.body.style.transition = 'filter 1s';
                     document.body.style.filter = 'invert(1) hue-rotate(180deg)';
                     setTimeout(() => {
                         document.body.style.filter = '';
                     }, 2000);
-                    konamiCode = []; // Reset konami code
+                    konamiCode = [];
                 }
             });
         });
         
-        
-        // Service Worker registration for PWA functionality
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')
@@ -2345,13 +2369,11 @@
             });
         }
         
-        // Add performance monitoring
         window.addEventListener('load', () => {
             if ('performance' in window) {
                 const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
                 console.log(`Page load time: ${loadTime}ms`);
                 
-                // Log performance metrics for optimization
                 if (performance.getEntriesByType) {
                     const entries = performance.getEntriesByType('navigation');
                     if (entries.length > 0) {
