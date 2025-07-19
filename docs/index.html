@@ -1,0 +1,2408 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <!-- 
+    ==================================================================
+    |                        BAGIAN META & HEAD                      |
+    ==================================================================
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>AESWNH - Aes | Self-taught Developer & Open Source Enthusiast</title>
+    <meta name="description" content="Aes - 19-year-old self-taught developer exploring bots, automation, and modular tools. Creator of AES-CO and ctrl-z verse projects.">
+    <meta name="author" content="aesneverhere">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://aeswnh.dev/">
+    
+    <!-- Meta Tags untuk Social Media (Open Graph & Twitter) -->
+    <meta property="og:title" content="AESWNH - Aes | Self-taught Developer">
+    <meta property="og:description" content="19-year-old self-taught developer exploring bots, automation, and modular tools.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aeswnh.dev">
+    <meta property="og:image" content="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/aes-co.png"> 
+    <meta property="og:site_name" content="AESWNH">
+    <meta property="og:locale" content="en_US">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AESWNH - Aes | Self-taught Developer">
+    <meta name="twitter:description" content="19-year-old self-taught developer exploring bots, automation, and modular tools.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/ctrl-z.png">
+    <meta name="twitter:creator" content="@aesneverhere">
+    
+    <!-- Favicon Diperbarui -->
+    <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/favicon.svg">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#b39ddb">
+    <meta name="msapplication-TileColor" content="#b39ddb">
+    
+    <!-- Preconnect untuk Font & CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Font Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- JSON-LD Schema untuk SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Aes",
+        "alternateName": "aesneverhere",
+        "description": "19-year-old self-taught developer exploring bots, automation, and modular tools",
+        "url": "https://aeswnh.dev",
+        "jobTitle": "Self-taught Developer",
+        "knowsAbout": ["Web Development", "Automation", "Open Source"],
+        "sameAs": ["https://github.com/aesneverhere"]
+    }
+    </script>
+    
+    <!-- 
+    ==================================================================
+    |                           BAGIAN CSS                           |
+    ==================================================================
+    -->
+    <style>
+        /* CSS Custom Properties for Better Maintainability */
+        :root {
+            --primary-color: #b39ddb;
+            --primary-hover: #9a67ea;
+            --primary-light: #e1bee7;
+            --secondary-color: #f3e5f5;
+            --accent-color: #ff6b6b;
+            --accent-hover: #ff5252;
+            --text-primary: #333333;
+            --text-secondary: #555555;
+            --text-muted: #888888;
+            --bg-light: #ffffff;
+            --bg-light-secondary: #f8f9fa;
+            --bg-dark: #121212;
+            --bg-dark-secondary: #1e1e1e;
+            --text-dark: #e0e0e0;
+            --text-dark-secondary: #b0b0b0;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.12);
+            --shadow-dark: rgba(0, 0, 0, 0.2);
+            --shadow-dark-mode: rgba(255, 255, 255, 0.08);
+            --glass-light: rgba(255, 255, 255, 0.7);
+            --glass-dark: rgba(30, 30, 30, 0.7);
+            --glass-border-light: rgba(255, 255, 255, 0.3);
+            --glass-border-dark: rgba(255, 255, 255, 0.1);
+            --border-light: rgba(0, 0, 0, 0.1);
+            --border-dark: rgba(255, 255, 255, 0.2);
+            --border-radius-sm: 8px;
+            --border-radius: 15px;
+            --border-radius-lg: 20px;
+            --transition-speed: 0.3s;
+            --transition-slow: 0.5s;
+            --font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --max-width: 1200px;
+            --max-width-text: 800px;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 3rem;
+            --spacing-xl: 4rem;
+            --spacing-xxl: 6rem;
+            --z-dropdown: 1000;
+            --z-sticky: 1020;
+            --z-fixed: 1030;
+            --z-overlay: 1040;
+            --z-modal: 1050;
+            --z-tooltip: 1070;
+        }
+        
+        /* CSS Reset and Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            line-height: 1.6;
+            height: 100%;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            overflow-x: hidden;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            font-feature-settings: "liga", "kern";
+        }
+        
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .bg-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-hover));
+            opacity: 0.08; /* Dibuat lebih subtle */
+            animation: float-particles 20s linear infinite;
+        }
+        
+        /* Menambahkan variasi bentuk dan ukuran partikel */
+        .bg-particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: -2s; animation-duration: 15s; }
+        .bg-particle:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: -4s; animation-duration: 18s; }
+        .bg-particle:nth-child(3) { width: 8px; height: 8px; left: 30%; animation-delay: -6s; animation-duration: 22s; }
+        .bg-particle:nth-child(4) { width: 5px; height: 5px; left: 40%; animation-delay: -8s; animation-duration: 16s; }
+        .bg-particle:nth-child(5) { width: 7px; height: 7px; left: 50%; animation-delay: -10s; animation-duration: 20s; }
+        .bg-particle:nth-child(6) { width: 6px; height: 6px; left: 60%; animation-delay: -12s; animation-duration: 19s; }
+        .bg-particle:nth-child(7) { width: 9px; height: 9px; left: 70%; animation-delay: -14s; animation-duration: 17s; }
+        .bg-particle:nth-child(8) { width: 4px; height: 4px; left: 80%; animation-delay: -16s; animation-duration: 21s; }
+        .bg-particle:nth-child(9) { width: 5px; height: 5px; left: 90%; animation-delay: -18s; animation-duration: 14s; }
+        .bg-particle:nth-child(10) { width: 8px; height: 8px; left: 15%; animation-delay: -20s; animation-duration: 23s; }
+        /* Menambahkan beberapa partikel berbentuk persegi */
+        .bg-particle:nth-child(11) { width: 7px; height: 7px; left: 25%; top: 0; border-radius: 2px; /* Bentuk persegi */ animation-delay: -5s; animation-duration: 25s; background: linear-gradient(45deg, var(--accent-color), var(--accent-hover)); }
+        .bg-particle:nth-child(12) { width: 5px; height: 5px; left: 75%; top: 0; border-radius: 50%; /* Bentuk lingkaran */ animation-delay: -15s; animation-duration: 16s; background: linear-gradient(45deg, var(--secondary-color), var(--primary-light)); }
+        
+        .wave-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 200px;
+            background: linear-gradient(45deg, 
+                var(--primary-color), 
+                var(--primary-hover), 
+                var(--secondary-color)
+            );
+            opacity: 0.05;
+            animation: wave 10s ease-in-out infinite;
+            border-radius: 50% 50% 0 0;
+        }
+        
+        @keyframes float-particles {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.1; }
+            90% { opacity: 0.1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+            25% { transform: translateX(-25%) translateY(-10px) rotate(1deg); }
+            50% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+            75% { transform: translateX(-75%) translateY(-10px) rotate(-1deg); }
+        }
+        
+        /* Theme Styles */
+        body.light {
+            background: linear-gradient(135deg, #f8faff 0%, #ffffff 50%, #f3f4f6 100%);
+            color: var(--text-primary);
+            transition: all 0.5s ease;
+        }
+        
+        body.dark {
+            background: linear-gradient(135deg, #0a0a0a 0%, #121212 50%, #1a1a1a 100%);
+            color: var(--text-dark);
+            transition: all 0.5s ease;
+        }
+        
+        /* Skip to Content Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: var(--border-radius-sm);
+            z-index: var(--z-tooltip);
+            transition: top var(--transition-speed);
+            font-weight: 500;
+        }
+        
+        .skip-link:focus {
+            top: 6px;
+        }
+        
+        /* Enhanced Loading Screen */
+        .loading-screen { /* Mengubah dari .loading-spinner ke .loading-screen */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #f8faff 0%, #e1bee7 50%, #b39ddb 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        }
+        
+        .loading-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .dark .loading-screen {
+            background: linear-gradient(135deg, #0a0a0a 0%, #2a1a3a 50%, #121212 100%);
+        }
+        
+        .spinner-container {
+            text-align: center;
+        }
+        
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(179, 157, 219, 0.3);
+            border-left: 4px solid var(--primary-color);
+            border-top: 4px solid var(--primary-hover);
+            border-radius: 50%;
+            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            margin: 0 auto 20px;
+        }
+        
+        .loading-text {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-top: 20px;
+            animation: pulse-text 2s ease-in-out infinite;
+        }
+        
+        .loading-dots {
+            display: inline-block;
+            font-size: 1.2rem;
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        
+        @keyframes spin {
+            0% { 
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(180deg) scale(1.1);
+            }
+            100% { 
+                transform: rotate(360deg) scale(1);
+            }
+        }
+        
+        @keyframes pulse-text {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+        
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: var(--z-fixed);
+            padding: var(--spacing-sm) 0;
+            transition: transform var(--transition-speed), background var(--transition-speed);
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .dark .navigation {
+            background: rgba(18, 18, 18, 0.95);
+            border-bottom-color: var(--border-dark);
+        }
+        
+        .navigation.hidden {
+            transform: translateY(-100%);
+        }
+        
+        .nav-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 var(--spacing-md);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: opacity var(--transition-speed);
+        }
+        
+        .logo:hover {
+            opacity: 0.8;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: inherit;
+            transition: color var(--transition-speed);
+            position: relative;
+            padding: var(--spacing-xs) 0;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover, .nav-link.active { /* Menambahkan .active */
+            color: var(--primary-color);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
+            transition: width var(--transition-speed);
+            border-radius: 1px;
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after { /* Menambahkan .active */
+            width: 100%;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: inherit;
+            padding: var(--spacing-xs);
+            border-radius: var(--border-radius-sm);
+            transition: background-color var(--transition-speed);
+        }
+        
+        .mobile-menu-toggle:hover {
+            background: var(--bg-light-secondary);
+        }
+        
+        .dark .mobile-menu-toggle:hover {
+            background: var(--bg-dark-secondary);
+        }
+
+        /* Mobile menu overlay styles */
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: var(--z-overlay);
+            display: none; /* Hidden by default */
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease-in-out;
+        }
+
+        .mobile-nav-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .mobile-nav-menu {
+            position: fixed;
+            top: 0;
+            right: -300px; /* Start off-screen */
+            width: 280px;
+            height: 100%;
+            background: var(--bg-light);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            z-index: calc(var(--z-overlay) + 1);
+            display: flex;
+            flex-direction: column;
+            padding: var(--spacing-md);
+            transition: right var(--transition-speed) ease-in-out;
+            list-style: none;
+        }
+
+        .dark .mobile-nav-menu {
+            background: var(--bg-dark);
+        }
+
+        .mobile-nav-menu.active {
+            right: 0; /* Slide in */
+        }
+
+        .mobile-nav-menu li {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .mobile-nav-menu .nav-link {
+            display: block;
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .mobile-nav-menu .nav-link:hover {
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+        .dark .mobile-nav-menu .nav-link:hover {
+            background: var(--bg-dark-secondary);
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-close {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+        }
+        .dark .mobile-menu-close {
+            color: var(--text-dark-secondary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: var(--spacing-xl) var(--spacing-md);
+            background: linear-gradient(135deg, var(--secondary-color), var(--bg-light));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dark .hero {
+            background: linear-gradient(135deg, #2a1a3a, var(--bg-dark));
+        }
+        
+        /* Animated background particles */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, var(--primary-color) 1px, transparent 1px),
+                radial-gradient(circle at 75% 75%, var(--primary-hover) 1px, transparent 1px);
+            background-size: 50px 50px, 80px 80px;
+            background-position: 0 0, 40px 40px;
+            opacity: 0.1;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .hero-content {
+            max-width: var(--max-width-text);
+            z-index: 1;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin: 0;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: fadeInUp 1s forwards 0.5s;
+            background: linear-gradient(45deg, var(--primary-hover), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            margin-top: var(--spacing-sm);
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: fadeInUp 1s forwards 0.7s;
+            color: var(--text-secondary);
+            font-weight: 300;
+            line-height: 1.4;
+            display: flex; /* Untuk ikon inline */
+            align-items: center; /* Untuk ikon inline */
+            justify-content: center; /* Untuk ikon inline */
+            gap: 0.5rem; /* Untuk ikon inline */
+        }
+        
+        .dark .hero-subtitle {
+            color: var(--text-dark-secondary);
+        }
+        
+        .hero-description {
+            font-size: 1.1rem;
+            margin-top: var(--spacing-md);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.9s;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex; /* Untuk ikon inline */
+            align-items: center; /* Untuk ikon inline */
+            justify-content: center; /* Untuk ikon inline */
+            gap: 0.5rem; /* Untuk ikon inline */
+        }
+        
+        .hero-subtitle i,
+        .hero-description i,
+        .about-text i,
+        .contact-text i {
+            color: var(--primary-color); /* Warna ikon adaptif */
+            font-size: 1.2em; /* Ukuran ikon yang sedikit lebih besar */
+        }
+
+        .hero-buttons {
+            margin-top: var(--spacing-lg);
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1.1s;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: none;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+            font-size: 1rem;
+            min-width: 140px;
+            justify-content: center;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            box-shadow: 0 4px 15px rgba(179, 157, 219, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(179, 157, 219, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: var(--spacing-md);
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1.3s, bounce 2s infinite 2s;
+        }
+        
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s ease, color 0.3s ease; /* Transisi untuk perubahan ikon */
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+        
+        /* Toggle Buttons */
+        .toggle-container {
+            position: fixed;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            z-index: var(--z-tooltip); /* Changed from var(--z-popover) for better consistency */
+        }
+        
+        .toggle {
+            cursor: pointer;
+            padding: var(--spacing-sm);
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            transition: all var(--transition-speed);
+            border: none;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform var(--transition-speed);
+        }
+        
+        .toggle:hover::before {
+            transform: scale(1);
+        }
+        
+        .toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px var(--shadow-medium);
+        }
+        
+        .toggle:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        .dark .toggle {
+            box-shadow: 0 4px 15px var(--shadow-dark-mode);
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: var(--spacing-xl) var(--spacing-md);
+            max-width: var(--max-width);
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Fix overlapping issues */
+        .section:not(.hero) {
+            margin-top: var(--spacing-lg);
+        }
+        
+        .skills, .devices {
+            margin-left: var(--spacing-md);
+            margin-right: var(--spacing-md);
+        }
+        
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05); /* UI Sempurnaan */
+        }
+        .dark .section-title { text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
+            border-radius: 2px;
+        }
+        
+        /* About Section */
+        .about {
+            text-align: center;
+        }
+        
+        .about-content {
+            max-width: var(--max-width-text);
+            margin: 0 auto;
+        }
+        
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-secondary);
+            display: flex; /* Untuk ikon inline */
+            align-items: center; /* Untuk ikon inline */
+            justify-content: center; /* Untuk ikon inline */
+            gap: 0.5rem; /* Untuk ikon inline */
+        }
+        
+        .dark .about-text {
+            color: var(--text-dark-secondary);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .stat-card {
+            background: var(--glass-light);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--glass-border-light);
+            box-shadow: 0 8px 32px var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+            animation: slideInUp 0.6s ease-out;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .stat-card:hover::before {
+            left: 100%;
+        }
+        
+        .dark .stat-card {
+            background: var(--glass-dark);
+            border-color: var(--glass-border-dark);
+            box-shadow: 0 8px 32px var(--shadow-dark-mode);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px var(--shadow-medium);
+        }
+        
+        .dark .stat-card:hover {
+            box-shadow: 0 20px 40px var(--shadow-dark-mode);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: var(--spacing-xs);
+        }
+        
+        /* Skills Section */
+        .skills {
+            background: var(--glass-light);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            margin: var(--spacing-xl) 0;
+            padding: var(--spacing-xl) var(--spacing-md);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--glass-border-light);
+            box-shadow: 0 8px 32px var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dark .skills {
+            background: var(--glass-dark);
+            border-color: var(--glass-border-dark);
+            box-shadow: 0 8px 32px var(--shadow-dark-mode);
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+        
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.3rem;
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+        }
+        
+        .skill-tag {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: transform var(--transition-speed);
+        }
+        
+        .skill-tag:hover {
+            transform: scale(1.05);
+        }
+        
+        .dark .skill-tag {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted size */
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .project-card {
+            background: var(--glass-light);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: 0 8px 32px var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--glass-border-light);
+            position: relative;
+        }
+        
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        
+        .project-card:hover::after {
+            opacity: 1;
+            animation: shimmer 1.5s ease-in-out;
+        }
+        
+        .dark .project-card {
+            background: var(--glass-dark);
+            border-color: var(--glass-border-dark);
+            box-shadow: 0 8px 32px var(--shadow-dark-mode);
+        }
+        
+        /* UI Sempurnaan: Efek glow pada hover kartu proyek */
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px var(--shadow-medium), 0 0 25px var(--primary-light);
+        }
+        .dark .project-card:hover {
+            box-shadow: 0 25px 50px var(--shadow-dark-mode), 0 0 25px var(--primary-color);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 180px; /* Adjusted size */
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+        
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+        
+        .project-content {
+            padding: var(--spacing-md);
+        }
+        
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+        
+        .dark .project-title {
+            color: var(--text-dark);
+        }
+        
+        .project-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+            font-size: 0.95rem; 
+            min-height: 110px; /* UI Sempurnaan: Menyamakan tinggi kartu */
+        }
+        
+        .dark .project-description {
+            color: var(--text-dark-secondary);
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .tech-tag {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .project-link {
+            flex: 1;
+            text-align: center;
+        }
+        
+        /* Devices Section */
+        .devices {
+            background: var(--glass-light);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            margin: var(--spacing-xl) 0;
+            padding: var(--spacing-xl) var(--spacing-md);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--glass-border-light);
+            box-shadow: 0 8px 32px var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dark .devices {
+            background: var(--glass-dark);
+            border-color: var(--glass-border-dark);
+            box-shadow: 0 8px 32px var(--shadow-dark-mode);
+        }
+        
+        .devices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .device-card {
+            background: var(--glass-light);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            box-shadow: 0 8px 32px var(--shadow-light);
+            text-align: center;
+            transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--glass-border-light);
+            position: relative;
+            overflow: hidden;
+            animation: slideInUp 0.6s ease-out;
+        }
+        
+        .device-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
+            transition: left var(--transition-speed);
+        }
+        
+        .device-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(179, 157, 219, 0.3) 0%, transparent 70%);
+            transition: all 0.6s ease;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+        
+        .dark .device-card {
+            background: var(--glass-dark);
+            border-color: var(--glass-border-dark);
+            box-shadow: 0 8px 32px var(--shadow-dark-mode);
+        }
+        
+        .device-card:hover::before {
+            left: 0;
+        }
+        
+        .device-card:hover::after {
+            width: 200%;
+            height: 200%;
+        }
+        
+        .device-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 20px 40px var(--shadow-medium);
+        }
+        
+        .dark .device-card:hover {
+            box-shadow: 0 20px 40px var(--shadow-dark-mode);
+        }
+        
+        .device-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+            transition: transform 0.3s ease; /* Animasi ikon */
+        }
+        .device-card:hover .device-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .device-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            color: var(--text-primary);
+        }
+        
+        .dark .device-name {
+            color: var(--text-dark);
+        }
+        
+        .device-specs {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .dark .device-specs {
+            color: var(--text-dark-secondary);
+        }
+        
+        /* Quote Section */
+        .quote {
+            text-align: center;
+            padding: var(--spacing-xxl) var(--spacing-md);
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            margin: var(--spacing-xl) 0;
+            border-radius: var(--border-radius-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quote::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+            background-size: 30px 30px;
+            animation: float 15s ease-in-out infinite;
+        }
+        /* Menambahkan ikon kutipan */
+        .quote blockquote::before,
+        .quote blockquote::after {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.3);
+            position: absolute;
+            opacity: 0.8;
+            transition: all 0.5s ease;
+        }
+        .quote blockquote::before {
+            content: "\f10d"; /* fa-quote-left */
+            top: 10px;
+            left: 20px;
+        }
+        .quote blockquote::after {
+            content: "\f10e"; /* fa-quote-right */
+            bottom: 10px;
+            right: 20px;
+        }
+        .quote:hover blockquote::before,
+        .quote:hover blockquote::after {
+            color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+
+        .quote blockquote {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            padding: 0 50px; /* Memberi ruang untuk ikon kutipan */
+        }
+        
+        .quote-author {
+            margin-top: var(--spacing-md);
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Contact Section */
+        .contact {
+            text-align: center;
+        }
+        
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-secondary);
+            display: flex; /* Untuk ikon inline */
+            align-items: center; /* Untuk ikon inline */
+            justify-content: center; /* Untuk ikon inline */
+            gap: 0.5rem; /* Untuk ikon inline */
+        }
+        
+        .dark .contact-text {
+            color: var(--text-dark-secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--bg-light-secondary);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: all var(--transition-speed);
+            border: 1px solid var(--border-light);
+            font-weight: 500;
+        }
+        
+        .dark .social-link {
+            background: var(--bg-dark-secondary);
+            color: var(--text-dark);
+            border-color: var(--border-dark);
+        }
+        
+        .social-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(179, 157, 219, 0.3);
+        }
+        
+        .social-link i {
+            font-size: 1.2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--glass-light);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            text-align: center;
+            padding: var(--spacing-lg) var(--spacing-md);
+            border-top: 1px solid var(--glass-border-light);
+            margin-top: var(--spacing-xl);
+            box-shadow: 0 -4px 16px var(--shadow-light);
+        }
+        
+        .dark footer {
+            background: var(--glass-dark);
+            border-top-color: var(--glass-border-dark);
+            box-shadow: 0 -4px 16px var(--shadow-dark-mode);
+        }
+        
+        .footer-content {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .dark .footer-text {
+            color: var(--text-dark-secondary);
+        }
+        
+        .footer-heart {
+            color: var(--accent-color);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(179, 157, 219, 0.3);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(179, 157, 219, 0.6);
+            }
+        }
+        
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            bottom: var(--spacing-md);
+            right: var(--spacing-md);
+            background: var(--primary-color);
+            color: white;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px var(--shadow-medium);
+            z-index: var(--z-tooltip); /* Menggunakan z-tooltip untuk toast */
+            transform: translateX(400px);
+            transition: transform var(--transition-speed);
+            font-weight: 500;
+            display: flex; /* Untuk ikon */
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+        .toast.info { background-color: var(--primary-color); }
+        .toast.success { background-color: #4CAF50; }
+        .toast.error { background-color: #f44336; }
+        .toast.warning { background-color: #ff9800; }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none; /* Sembunyikan menu desktop */
+            }
+            
+            .mobile-menu-toggle {
+                display: block; /* Tampilkan tombol toggle mobile */
+            }
+            
+            .toggle-container {
+                top: var(--spacing-sm);
+                right: var(--spacing-sm);
+                flex-direction: column;
+            }
+            
+            .toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+            
+            .hero {
+                padding: var(--spacing-lg) var(--spacing-sm);
+                min-height: calc(100vh - 60px);
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .projects-grid,
+            .devices-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--spacing-sm);
+            }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .social-link {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --shadow-light: rgba(0, 0, 0, 0.3);
+                --shadow-medium: rgba(0, 0, 0, 0.5);
+                --border-light: rgba(0, 0, 0, 0.3);
+            }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            .navigation,
+            .toggle-container,
+            .hero-buttons,
+            .scroll-indicator,
+            .mobile-menu-toggle,
+            .mobile-nav-overlay,
+            .mobile-nav-menu {
+                display: none !important; /* Sembunyikan elemen non-cetak */
+            }
+            
+            .hero {
+                min-height: auto;
+                padding: var(--spacing-md);
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+        
+        /* Focus styles for better accessibility */
+        *:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        /* Selection styles */
+        ::selection {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        ::-moz-selection {
+            background: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body class="light">
+
+    <!-- 
+    ==================================================================
+    |                           BAGIAN HTML                          |
+    ==================================================================
+    -->
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <div class="loading-screen" id="loadingScreen">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <p class="loading-text">Loading<span class="loading-dots"></span></p>
+        </div>
+    </div>
+    
+    <nav class="navigation" id="navigation" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="#home" class="logo" aria-label="AESWNH Home">Aes.</a>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+    <ul class="mobile-nav-menu" id="mobileNavMenu">
+        <button class="mobile-menu-close" aria-label="Close mobile menu" id="mobileMenuClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <li><a href="#home" class="nav-link mobile-nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link mobile-nav-link">About</a></li>
+        <li><a href="#projects" class="nav-link mobile-nav-link">Projects</a></li>
+        <li><a href="#contact" class="nav-link mobile-nav-link">Contact</a></li>
+    </ul>
+    
+    <div class="toggle-container">
+        <button class="toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="toggle" id="languageToggle" aria-label="Toggle language">
+            <span id="languageText">EN</span>
+            <i class="fas fa-globe"></i> </button>
+    </div>
+    
+    <div class="animated-bg">
+        <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
+        <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
+        <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
+        <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
+        <div class="wave-bg"></div>
+    </div>
+    
+    <main id="main-content">
+        <section class="hero" id="home" role="banner">
+            <div class="hero-content">
+                <h1>Aes.</h1>
+                <p class="hero-subtitle"><i class="fas fa-quote-left"></i> Silence is our default setting. Curiosity is our engine. <i class="fas fa-quote-right"></i></p>
+                <p class="hero-description" id="heroDescriptionEN">
+                    <i class="fas fa-robot"></i> Self-taught developer passionate about automation, and creating tools that solve real problems.
+                </p>
+                <p class="hero-description" id="heroDescriptionID" style="display: none;">
+                    <i class="fas fa-robot"></i> Developer otodidak yang passionate tentang otomasi, dan menciptakan tools yang memecahkan masalah nyata.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary" id="viewWorkBtn">
+                        <i class="fas fa-code"></i>
+                        <span id="viewWorkText">View My Work</span>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary" id="getInTouchBtn">
+                        <i class="fas fa-envelope"></i>
+                        <span id="getInTouchText">Get In Touch</span>
+                    </a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+        
+        <section class="section about" id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <p class="about-text" id="aboutTextEN">
+                    <i class="fas fa-user-graduate"></i> Hi! I'm Aes, a 19-year-old self-taught developer exploring automation, and modular tools. 
+                    I believe in the power of code to transform ideas into reality and solve complex problems with elegant solutions.
+                </p>
+                <p class="about-text" id="aboutTextID" style="display: none;">
+                    <i class="fas fa-user-graduate"></i> Halo! Aku Aes, seorang developer otodidak 19 tahun yang tertarik pada otomasi modular. 
+                    Aku percaya pada kekuatan kode untuk mengubah ide menjadi kenyataan dan memecahkan masalah kompleks dengan solusi yang elegan.
+                </p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card"><span class="stat-number">3+</span><span class="stat-label" id="yearsCodingLabel">Years Coding</span></div>
+                    <div class="stat-card"><span class="stat-number">50+</span><span class="stat-label" id="projectsCreatedLabel">Projects Created</span></div>
+                    <div class="stat-card"><span class="stat-number">100%</span><span class="stat-label" id="selfTaughtLabel">Self-taught</span></div>
+                    <div class="stat-card"><span class="stat-number">∞</span><span class="stat-label" id="curiosityLabel">Curiosity Level</span></div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="skills">
+            <h2 class="section-title" id="skillsTitle">Skills & Technologies</h2>
+            <div class="skills-grid">
+                <div class="skill-category"><h3><i class="fas fa-code"></i> Programming Languages</h3><div class="skill-list"><span class="skill-tag">JavaScript</span><span class="skill-tag">Python</span><span class="skill-tag">TypeScript</span><span class="skill-tag">HTML/CSS</span><span class="skill-tag">Node.js</span></div></div>
+                <div class="skill-category"><h3><i class="fas fa-robot"></i> Automation & Tools</h3><div class="skill-list"><span class="skill-tag">Selenium</span><span class="skill-tag">Puppeteer</span><span class="skill-tag">Web Scraping</span><span class="skill-tag">API Integration</span><span class="skill-tag">Scripting</span></div></div>
+                <div class="skill-category"><h3><i class="fas fa-tools"></i> Frameworks & Databases</h3><div class="skill-list"><span class="skill-tag">Git</span><span class="skill-tag">VS Code</span><span class="skill-tag">Express.js</span><span class="skill-tag">React</span><span class="skill-tag">MongoDB</span><span class="skill-tag">SQL</span></div></div>
+                <div class="skill-category"><h3><i class="fas fa-cloud"></i> Platforms & Services</h3><div class="skill-list"><span class="skill-tag">GitHub</span><span class="skill-tag">Heroku</span><span class="skill-tag">Vercel</span><span class="skill-tag">Firebase</span><span class="skill-tag">Google Cloud</span><span class="skill-tag">Android</span></div></div>
+            </div>
+        </section>
+        
+        <section class="section aes-co" id="projects">
+            <h2 class="section-title" id="projectsTitle">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <!-- GAMBAR DIPERBARUI -->
+                        <img src="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/aes-co.png" alt="AES-CO project dashboard" loading="lazy">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">AES-CO</h3>
+                        <!-- DESKRIPSI DISEMPURNAKAN -->
+                        <p class="project-description">
+                            A collection of modular tools and automation scripts designed to solve specific problems and streamline complex workflows, all open-sourced.
+                        </p>
+                        <div class="project-tech"><span class="tech-tag">JavaScript</span><span class="tech-tag">Node.js</span><span class="tech-tag">Open Source</span></div>
+                        <div class="project-links">
+                            <a href="https://github.com/aes-co" class="btn btn-secondary project-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="https://github.com/aes-co" class="btn btn-primary project-link" aria-label="Explore AES-CO"><i class="fas fa-external-link-alt"></i> Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <!-- GAMBAR DIPERBARUI -->
+                        <img src="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/ctrl-z.png" alt="ctrl-z verse project interface" loading="lazy">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">ctrl-z verse</h3>
+                        <!-- DESKRIPSI DISEMPURNAKAN -->
+                        <p class="project-description">
+                            The spiritual successor to AES-CO, embodying resilience and creativity. A testament to the unbreakable spirit of development, focusing on robust and innovative solutions.
+                        </p>
+                        <div class="project-tech"><span class="tech-tag">TypeScript</span><span class="tech-tag">React</span><span class="tech-tag">Automation</span></div>
+                        <div class="project-links">
+                            <a href="https://github.com/ctrlzverse" class="btn btn-secondary project-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="https://github.com/ctrlzverse" class="btn btn-primary project-link" aria-label="Explore ctrl-z verse"><i class="fas fa-external-link-alt"></i> Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+        </section>
+        
+        <section class="devices">
+            <h2 class="section-title" id="devicesTitle">My Tech Arsenal</h2>
+            <div class="devices-grid">
+                <div class="device-card"><div class="device-icon"><i class="fas fa-desktop"></i></div><h3 class="device-name">Custom PC Build</h3><p class="device-specs">Intel® Core™ i7-9700 Processor<br>NVIDIA GeForce RTX 1080 Ti<br>16GB DDR4 RAM • 1TB NVMe SSD<br>The powerhouse for heavy lifting & development.</p></div>
+                <div class="device-card"><div class="device-icon"><i class="fas fa-mobile-alt"></i></div><h3 class="device-name">Galaxy Note 10</h3><p class="device-specs">8GB RAM • Android 12<br>Primary mobile development device<br>Termux • VS Code Mobile</p></div>
+                <div class="device-card"><div class="device-icon"><i class="fas fa-laptop-code"></i></div><h3 class="device-name">Development Setup</h3><p class="device-specs">Cloud-based development environment<br>GitHub Codespaces • Remote SSH<br>Seamless coding from anywhere.</p></div>
+                <div class="device-card"><div class="device-icon"><i class="fas fa-cloud"></i></div><h3 class="device-name">Cloud Services</h3><p class="device-specs">Google Cloud Platform • Heroku • Vercel<br>MongoDB Atlas • Automated CI/CD<br>Scalable solutions for global reach.</p></div>
+            </div>
+        </section>
+        
+        <section class="quote">
+            <blockquote>"Spirit of god never dies. It just forks the universe."</blockquote>
+            <p class="quote-author">— A philosophy on resilience and rebirth</p>
+        </section>
+        
+        <section class="section contact" id="contact">
+            <h2 class="section-title">Let's Connect</h2>
+            <div class="contact-content">
+                <p class="contact-text" id="contactTextEN"><i class="fas fa-handshake"></i> I'm always excited to collaborate on interesting projects or discuss new ideas. Whether you're looking for automation solutions, or just want to chat about tech, feel free to reach out!</p>
+                <p class="contact-text" id="contactTextID" style="display: none;"><i class="fas fa-handshake"></i> Aku selalu antusias untuk berkolaborasi dalam proyek menarik atau mendiskusikan ide-ide baru. Baik kamu mencari solusi otomasi, atau hanya ingin ngobrol tentang teknologi, jangan ragu untuk menghubungi!</p>
+                <div class="social-links">
+                    <a href="https://github.com/aesneverhere" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://t.me/aesneverhere" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i> Telegram Profile</a>
+                    <a href="https://t.me/aes_hub" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i> Telegram Channel</a>
+                    <a href="mailto:aesh.n@outlook.com" class="social-link"><i class="fas fa-envelope"></i> Personal Email</a>
+                    <a href="mailto:hello@zverse.my.id" class="social-link"><i class="fas fa-building"></i> Org Email</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">
+                Made with <span class="footer-heart">❤</span> by aesneverhere • 2025
+            </p>
+        </div>
+    </footer>
+    
+    <div class="toast" id="toast"></div>
+    
+    <!-- 
+    ==================================================================
+    |                         BAGIAN JAVASCRIPT                      |
+    ==================================================================
+    -->
+    <script>
+        // Enhanced Theme and Language Toggle Functionality
+        class WebsiteController {
+            constructor() {
+                this.initializeElements();
+                this.initializeTheme();
+                this.initializeLanguage();
+                this.initializeScrollEffects();
+                this.initializeNavigation();
+                this.initializeLoading();
+                this.initializeAnimations();
+                this.initializeMobileMenu();
+                this.initializeKeyboardNavigation();
+                this.initializeTypingEffect();
+                this.initializeHeroParallax();
+                this.initializeScrollIndicatorBehavior();
+            }
+            
+            initializeElements() {
+                this.themeToggle = document.getElementById('themeToggle');
+                this.languageToggle = document.getElementById('languageToggle');
+                this.languageText = document.getElementById('languageText');
+                this.navigation = document.getElementById('navigation');
+                this.loadingScreen = document.getElementById('loadingScreen');
+                this.toast = document.getElementById('toast');
+
+                this.mobileMenuToggle = document.getElementById('mobileMenuToggle');
+                this.mobileNavOverlay = document.getElementById('mobileNavOverlay');
+                this.mobileNavMenu = document.getElementById('mobileNavMenu');
+                this.mobileMenuClose = document.getElementById('mobileMenuClose');
+                this.mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+                // Elemen untuk typing effect dan parallax
+                this.heroTitle = document.querySelector('.hero h1');
+                this.heroSubtitle = document.querySelector('.hero-subtitle');
+                this.heroDescriptionEN = document.getElementById('heroDescriptionEN');
+                this.heroDescriptionID = document.getElementById('heroDescriptionID');
+                this.scrollIndicator = document.querySelector('.scroll-indicator i');
+                
+                // Language elements
+                this.languageElements = {
+                    en: {
+                        aboutText: document.getElementById('aboutTextEN'),
+                        heroDescription: this.heroDescriptionEN,
+                        contactText: document.getElementById('contactTextEN'),
+                    },
+                    id: {
+                        aboutText: document.getElementById('aboutTextID'),
+                        heroDescription: this.heroDescriptionID,
+                        contactText: document.getElementById('contactTextID'),
+                    }
+                };
+                
+                // Translation content
+                this.translations = {
+                    en: {
+                        viewWorkText: 'View My Work',
+                        getInTouchText: 'Get In Touch',
+                        yearsCodingLabel: 'Years Coding',
+                        projectsCreatedLabel: 'Projects Created',
+                        selfTaughtLabel: 'Self-taught',
+                        curiosityLabel: 'Curiosity Level',
+                        skillsTitle: 'Skills & Technologies',
+                        projectsTitle: 'Featured Projects',
+                        devicesTitle: 'My Tech Arsenal',
+                        homeNav: 'Home',
+                        aboutNav: 'About',
+                        projectsNav: 'Projects',
+                        contactNav: 'Contact',
+                        loadingText: 'Loading',
+                        // Add hero subtitle and description to translations if they are dynamic
+                        heroSubtitleText: '<i class="fas fa-quote-left"></i> Silence is our default setting. Curiosity is our engine. <i class="fas fa-quote-right"></i>',
+                        heroDescriptionTextEN: '<i class="fas fa-robot"></i> Self-taught developer passionate about automation, and creating tools that solve real problems.',
+                        heroDescriptionTextID: '<i class="fas fa-robot"></i> Developer otodidak yang passionate tentang otomasi, dan menciptakan tools yang memecahkan masalah nyata.',
+                        aboutTextContentEN: '<i class="fas fa-user-graduate"></i> Hi! I\'m Aes, a 19-year-old self-taught developer exploring automation, and modular tools. I believe in the power of code to transform ideas into reality and solve complex problems with elegant solutions.',
+                        aboutTextContentID: '<i class="fas fa-user-graduate"></i> Halo! Aku Aes, seorang developer otodidak 19 tahun yang tertarik pada otomasi modular. Aku percaya pada kekuatan kode untuk mengubah ide menjadi kenyataan dan memecahkan masalah kompleks dengan solusi yang elegan.',
+                        contactTextContentEN: '<i class="fas fa-handshake"></i> I\'m always excited to collaborate on interesting projects or discuss new ideas. Whether you\'re looking for automation solutions, or just want to chat about tech, feel free to reach out!',
+                        contactTextContentID: '<i class="fas fa-handshake"></i> Aku selalu antusias untuk berkolaborasi dalam proyek menarik atau mendiskusikan ide-ide baru. Baik kamu mencari solusi otomasi, atau hanya ingin ngobrol tentang teknologi, jangan ragu untuk menghubungi!',
+                    },
+                    id: {
+                        viewWorkText: 'Lihat Karya Saya',
+                        getInTouchText: 'Hubungi Saya',
+                        yearsCodingLabel: 'Tahun Coding',
+                        projectsCreatedLabel: 'Proyek Dibuat',
+                        selfTaughtLabel: 'Otodidak',
+                        curiosityLabel: 'Tingkat Keingintahuan',
+                        skillsTitle: 'Keahlian & Teknologi',
+                        projectsTitle: 'Proyek Unggulan',
+                        devicesTitle: 'Arsenal Teknologi Saya',
+                        homeNav: 'Beranda',
+                        aboutNav: 'Tentang',
+                        projectsNav: 'Proyek',
+                        contactNav: 'Kontak',
+                        loadingText: 'Memuat',
+                        // Add hero subtitle and description to translations if they are dynamic
+                        heroSubtitleText: '<i class="fas fa-quote-left"></i> Keheningan adalah pengaturan bawaan kami. Keingintahuan adalah mesin kami. <i class="fas fa-quote-right"></i>',
+                        heroDescriptionTextEN: '<i class="fas fa-robot"></i> Self-taught developer passionate about automation, and creating tools that solve real problems.', // Keep EN for ID if not explicitly translated
+                        heroDescriptionTextID: '<i class="fas fa-robot"></i> Developer otodidak yang passionate tentang otomasi, dan menciptakan tools yang memecahkan masalah nyata.',
+                        aboutTextContentEN: '<i class="fas fa-user-graduate"></i> Hi! I\'m Aes, a 19-year-old self-taught developer exploring automation, and modular tools. I believe in the power of code to transform ideas into reality and solve complex problems with elegant solutions.', // Keep EN for ID if not explicitly translated
+                        aboutTextContentID: '<i class="fas fa-user-graduate"></i> Halo! Aku Aes, seorang developer otodidak 19 tahun yang tertarik pada otomasi modular. Aku percaya pada kekuatan kode untuk mengubah ide menjadi kenyataan dan memecahkan masalah kompleks dengan solusi yang elegan.',
+                        contactTextContentEN: '<i class="fas fa-handshake"></i> I\'m always excited to collaborate on interesting projects or discuss new ideas. Whether you\'re looking for automation solutions, or just want to chat about tech, feel free to reach out!', // Keep EN for ID if not explicitly translated
+                        contactTextContentID: '<i class="fas fa-handshake"></i> Aku selalu antusias untuk berkolaborasi dalam proyek menarik atau mendiskusikan ide-ide baru. Baik kamu mencari solusi otomasi, atau hanya ingin ngobrol tentang teknologi, jangan ragu untuk menghubungi!',
+                    }
+                };
+
+                // Elemen yang perlu diterjemahkan di luar languageElements
+                this.translatableElements = {
+                    viewWorkText: document.getElementById('viewWorkText'),
+                    getInTouchText: document.getElementById('getInTouchText'),
+                    yearsCodingLabel: document.getElementById('yearsCodingLabel'),
+                    projectsCreatedLabel: document.getElementById('projectsCreatedLabel'),
+                    selfTaughtLabel: document.getElementById('selfTaughtLabel'),
+                    curiosityLabel: document.getElementById('curiosityLabel'),
+                    skillsTitle: document.getElementById('skillsTitle'),
+                    projectsTitle: document.getElementById('projectsTitle'),
+                    devicesTitle: document.getElementById('devicesTitle'),
+                    homeNavLink: document.querySelector('.nav-menu a[href="#home"]'),
+                    aboutNavLink: document.querySelector('.nav-menu a[href="#about"]'),
+                    projectsNavLink: document.querySelector('.nav-menu a[href="#projects"]'),
+                    contactNavLink: document.querySelector('.nav-menu a[href="#contact"]'),
+                    homeMobileNavLink: document.querySelector('.mobile-nav-menu a[href="#home"]'),
+                    aboutMobileNavLink: document.querySelector('.mobile-nav-menu a[href="#about"]'),
+                    projectsMobileNavLink: document.querySelector('.mobile-nav-menu a[href="#projects"]'),
+                    contactMobileNavLink: document.querySelector('.mobile-nav-menu a[href="#contact"]'),
+                    loadingScreenText: document.querySelector('.loading-text'),
+                    
+                    // Add references for dynamic content with icons
+                    heroSubtitle: this.heroSubtitle,
+                    heroDescriptionEN: this.heroDescriptionEN,
+                    heroDescriptionID: this.heroDescriptionID,
+                    aboutTextEN: document.getElementById('aboutTextEN'),
+                    aboutTextID: document.getElementById('aboutTextID'),
+                    contactTextEN: document.getElementById('contactTextEN'),
+                    contactTextID: document.getElementById('contactTextID'),
+                };
+            }
+            
+            initializeTheme() {
+                // Load saved theme or default to light
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                this.setTheme(savedTheme);
+                
+                this.themeToggle.addEventListener('click', () => {
+                    const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    this.setTheme(newTheme);
+                    this.showToast(`Switched to ${newTheme} mode`, 'info');
+                });
+            }
+            
+            setTheme(theme) {
+                document.body.classList.remove('light', 'dark');
+                document.body.classList.add(theme);
+                
+                const icon = this.themeToggle.querySelector('i');
+                if (theme === 'dark') {
+                    icon.className = 'fas fa-sun';
+                } else {
+                    icon.className = 'fas fa-moon';
+                }
+                
+                localStorage.setItem('theme', theme);
+                
+                // Update meta theme-color
+                const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+                if (metaThemeColor) {
+                    metaThemeColor.setAttribute('content', theme === 'dark' ? '#121212' : '#b39ddb');
+                }
+            }
+            
+            initializeLanguage() {
+                // Load saved language or default to English
+                const savedLang = localStorage.getItem('language') || 'en';
+                this.setLanguage(savedLang);
+                
+                this.languageToggle.addEventListener('click', () => {
+                    const currentLang = this.languageText.textContent.toLowerCase();
+                    const newLang = currentLang === 'en' ? 'id' : 'en';
+                    this.setLanguage(newLang);
+                    this.showToast(`Language switched to ${newLang === 'en' ? 'English' : 'Indonesian'}`, 'info');
+                });
+            }
+            
+            setLanguage(lang) {
+                // Hide all language-specific content
+                Object.values(this.languageElements).forEach(langObj => {
+                    Object.values(langObj).forEach(element => {
+                        if (element) element.style.display = 'none';
+                    });
+                });
+                
+                // Show content for the selected language
+                if (this.languageElements[lang]) {
+                    Object.values(this.languageElements[lang]).forEach(element => {
+                        if (element) element.style.display = 'block';
+                    });
+                }
+
+                // Update translatable elements
+                for (const key in this.translatableElements) {
+                    if (this.translatableElements[key]) {
+                        if (key.includes('heroSubtitle')) {
+                            this.translatableElements[key].innerHTML = this.translations[lang].heroSubtitleText;
+                        } else if (key === 'heroDescriptionEN') {
+                            this.translatableElements[key].innerHTML = this.translations[lang].heroDescriptionTextEN;
+                        } else if (key === 'heroDescriptionID') {
+                            this.translatableElements[key].innerHTML = this.translations[lang].heroDescriptionTextID;
+                        } else if (key === 'aboutTextEN') {
+                            this.translatableElements[key].innerHTML = this.translations[lang].aboutTextContentEN;
+                        } else if (key === 'aboutTextID') {
+                            this.translatableElements[key].innerHTML = this.translations[lang].aboutTextContentID;
+                        } else if (key === 'contactTextEN') {
+                            this.translatableElements[key].innerHTML = this.translations[lang].contactTextContentEN;
+                        } else if (key === 'contactTextID') {
+                            this.translatableElements[key].innerHTML = this.translations[lang].contactTextContentID;
+                        }
+                        // Handle special cases for navigation links
+                        else if (key.includes('NavLink')) {
+                            const navKey = key.replace('NavLink', '');
+                            this.translatableElements[key].textContent = this.translations[lang][`${navKey}Nav`];
+                        } else if (key.includes('MobileNavLink')) {
+                            const navKey = key.replace('MobileNavLink', '');
+                            this.translatableElements[key].textContent = this.translations[lang][`${navKey}Nav`];
+                        } else {
+                            this.translatableElements[key].textContent = this.translations[lang][key];
+                        }
+                    }
+                }
+                
+                // Update toggle button text
+                this.languageText.textContent = lang.toUpperCase();
+                
+                // Update HTML lang attribute
+                document.documentElement.lang = lang;
+                
+                localStorage.setItem('language', lang);
+            }
+            
+            initializeScrollEffects() {
+                let lastScrollTop = 0;
+                
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    // Hide/show navigation on scroll
+                    if (scrollTop > lastScrollTop && scrollTop > 100) {
+                        this.navigation.classList.add('hidden');
+                    } else {
+                        this.navigation.classList.remove('hidden');
+                    }
+                    
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                    
+                    // Animate sections on scroll
+                    this.animateOnScroll();
+                });
+            }
+            
+            animateOnScroll() {
+                const sections = document.querySelectorAll('.section');
+                const windowHeight = window.innerHeight;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    
+                    if (sectionTop < windowHeight - 100) {
+                        section.classList.add('visible');
+                    } else {
+                        // Opsional: hapus 'visible' jika section keluar dari viewport atas
+                        // if (sectionTop > windowHeight) {
+                        //     section.classList.remove('visible');
+                        // }
+                    }
+                });
+            }
+            
+            initializeNavigation() {
+                // Enhanced smooth scroll for navigation links
+                const navLinks = document.querySelectorAll('a[href^="#"]');
+                
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = link.getAttribute('href').slice(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            const navHeight = this.navigation.offsetHeight;
+                            const offsetTop = targetElement.offsetTop - navHeight - 20;
+                            
+                            // Enhanced smooth scroll with easing
+                            window.scrollTo({
+                                top: offsetTop,
+                                behavior: 'smooth'
+                            });
+
+                            // Close mobile menu if open
+                            if (this.mobileNavMenu.classList.contains('active')) {
+                                this.closeMobileMenu();
+                            }
+                        }
+                    });
+                });
+                
+                // Highlight active navigation item
+                this.updateActiveNavItem();
+                window.addEventListener('scroll', () => this.updateActiveNavItem());
+            }
+            
+            updateActiveNavItem() {
+                const sections = document.querySelectorAll('section[id]');
+                const navLinks = document.querySelectorAll('.nav-menu .nav-link, .mobile-nav-menu .nav-link');
+                
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - this.navigation.offsetHeight - 50;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            initializeLoading() {
+                window.addEventListener('load', () => {
+                    setTimeout(() => {
+                        this.loadingScreen.classList.add('fade-out');
+                        setTimeout(() => {
+                            if (this.loadingScreen) {
+                                this.loadingScreen.style.display = 'none';
+                            }
+                        }, 800);
+                    }, 1000); // Waktu loading dipercepat sedikit
+                });
+            }
+            
+            initializeAnimations() {
+                if ('IntersectionObserver' in window) {
+                    const observerOptions = {
+                        threshold: 0.1,
+                        rootMargin: '0px 0px -50px 0px'
+                    };
+                    
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('visible');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, observerOptions);
+                    
+                    document.querySelectorAll('.section').forEach(section => {
+                        observer.observe(section);
+                    });
+                }
+            }
+
+            initializeMobileMenu() {
+                this.mobileMenuToggle.addEventListener('click', () => {
+                    this.openMobileMenu();
+                });
+
+                this.mobileMenuClose.addEventListener('click', () => {
+                    this.closeMobileMenu();
+                });
+
+                this.mobileNavOverlay.addEventListener('click', () => {
+                    this.closeMobileMenu();
+                });
+
+                this.mobileNavLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        this.closeMobileMenu();
+                    });
+                });
+            }
+
+            openMobileMenu() {
+                this.mobileNavOverlay.classList.add('active');
+                this.mobileNavMenu.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            closeMobileMenu() {
+                this.mobileNavOverlay.classList.remove('active');
+                this.mobileNavMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            showToast(message, type = 'info', duration = 3000) {
+                this.toast.textContent = '';
+                this.toast.className = 'toast show';
+                this.toast.classList.add(type);
+
+                let iconClass = '';
+                if (type === 'success') iconClass = 'fas fa-check-circle';
+                else if (type === 'error') iconClass = 'fas fa-times-circle';
+                else if (type === 'warning') iconClass = 'fas fa-exclamation-triangle';
+                else iconClass = 'fas fa-info-circle';
+
+                const iconElement = document.createElement('i');
+                iconElement.className = iconClass;
+                this.toast.appendChild(iconElement);
+
+                const textNode = document.createTextNode(' ' + message);
+                this.toast.appendChild(textNode);
+                
+                setTimeout(() => {
+                    this.toast.classList.remove('show');
+                }, duration);
+            }
+            
+            debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+            
+            initializeKeyboardNavigation() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key.toLowerCase() === 'k' && (e.ctrlKey || e.metaKey)) {
+                        e.preventDefault();
+                        this.themeToggle.click();
+                    }
+                    
+                    if (e.key.toLowerCase() === 'l' && (e.ctrlKey || e.metaKey)) {
+                        e.preventDefault();
+                        this.languageToggle.click();
+                    }
+                    if (e.key === 'Escape' && this.mobileNavMenu.classList.contains('active')) {
+                        this.closeMobileMenu();
+                    }
+                });
+            }
+
+            // --- New Interactive UI Features ---
+            initializeTypingEffect() {
+                const currentLang = localStorage.getItem('language') || 'en';
+                const originalSubtitle = this.translations[currentLang].heroSubtitleText;
+                const originalDescriptionEN = this.translations.en.heroDescriptionTextEN;
+                const originalDescriptionID = this.translations.id.heroDescriptionTextID;
+
+                this.heroSubtitle.innerHTML = '';
+                this.heroDescriptionEN.innerHTML = '';
+                this.heroDescriptionID.innerHTML = '';
+
+                const typeText = (element, text, delay = 50, callback) => {
+                    let i = 0;
+                    element.style.opacity = 1;
+                    const typingInterval = setInterval(() => {
+                        if (i < text.length) {
+                            // Append character by character, ensuring HTML tags are handled
+                            const char = text.charAt(i);
+                            if (char === '<') {
+                                // Find end of tag
+                                const endIndex = text.indexOf('>', i);
+                                if (endIndex !== -1) {
+                                    element.innerHTML += text.substring(i, endIndex + 1);
+                                    i = endIndex + 1;
+                                } else {
+                                    element.innerHTML += char;
+                                    i++;
+                                }
+                            } else {
+                                element.innerHTML += char;
+                                i++;
+                            }
+                        } else {
+                            clearInterval(typingInterval);
+                            if (callback) callback();
+                        }
+                    }, delay);
+                };
+
+                // Delay typing effect until after initial fadeInUp animation
+                setTimeout(() => {
+                    typeText(this.heroSubtitle, originalSubtitle, 50, () => {
+                        if (currentLang === 'en') {
+                            typeText(this.heroDescriptionEN, originalDescriptionEN, 30);
+                        } else {
+                            typeText(this.heroDescriptionID, originalDescriptionID, 30);
+                        }
+                    });
+                }, 1500); // Adjust this delay based on your hero's fadeInUp animation duration
+            }
+
+
+            initializeHeroParallax() {
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.pageYOffset;
+                    const hero = document.querySelector('.hero');
+                    if (!hero) return;
+
+                    const heroHeight = hero.offsetHeight;
+
+                    if (scrolled <= heroHeight) {
+                        // Parallax for text elements within hero
+                        this.heroTitle.style.transform = `translateY(${scrolled * 0.3}px)`;
+                        this.heroSubtitle.style.transform = `translateY(${scrolled * 0.2}px)`;
+                        this.heroDescriptionEN.style.transform = `translateY(${scrolled * 0.1}px)`;
+                        this.heroDescriptionID.style.transform = `translateY(${scrolled * 0.1}px)`;
+                    }
+                });
+            }
+
+            initializeScrollIndicatorBehavior() {
+                window.addEventListener('scroll', this.debounce(() => {
+                    const scrollPosition = window.pageYOffset;
+                    const documentHeight = document.documentElement.scrollHeight;
+                    const windowHeight = window.innerHeight;
+
+                    // Change arrow direction if near bottom
+                    if (scrollPosition + windowHeight >= documentHeight - 100) { // 100px from bottom
+                        this.scrollIndicator.className = 'fas fa-chevron-up';
+                    } else {
+                        this.scrollIndicator.className = 'fas fa-chevron-down';
+                    }
+                }, 100));
+            }
+        }
+        
+        // Initialize the website controller when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const website = new WebsiteController();
+            
+            // Add some easter eggs
+            console.log('%c🌟 AESWNH - Aes', 'font-size: 2em; color: #b39ddb; font-weight: bold;');
+            console.log('%cInterested in the code? Check out the source!', 'color: #666; font-style: italic;');
+            
+            // Add konami code easter egg
+            let konamiCode = [];
+            const konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // Up, Up, Down, Down, Left, Right, Left, Right, B, A
+            
+            document.addEventListener('keydown', (e) => {
+                konamiCode.push(e.keyCode);
+                if (konamiCode.length > konami.length) {
+                    konamiCode.shift();
+                }
+                
+                if (konamiCode.toString() === konami.toString()) {
+                    website.showToast('🎉 Easter egg activated! You found the secret!', 'success', 5000);
+                    // Add some fun visual effect
+                    document.body.style.animation = 'rainbow 2s ease-in-out';
+                    setTimeout(() => {
+                        document.body.style.animation = '';
+                    }, 2000);
+                    konamiCode = []; // Reset konami code
+                }
+            });
+        });
+        
+        // Add rainbow animation for easter egg
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes rainbow {
+                0% { filter: hue-rotate(0deg); }
+                25% { filter: hue-rotate(90deg); }
+                50% { filter: hue-rotate(180deg); }
+                75% { filter: hue-rotate(270deg); }
+                100% { filter: hue-rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Service Worker registration for PWA functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+        
+        // Add performance monitoring
+        window.addEventListener('load', () => {
+            if ('performance' in window) {
+                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                console.log(`Page load time: ${loadTime}ms`);
+                
+                // Log performance metrics for optimization
+                if (performance.getEntriesByType) {
+                    const entries = performance.getEntriesByType('navigation');
+                    if (entries.length > 0) {
+                        const navEntry = entries[0];
+                        console.log('Performance metrics:', {
+                            dns: navEntry.domainLookupEnd - navEntry.domainLookupStart,
+                            tcp: navEntry.connectEnd - navEntry.connectStart,
+                            request: navEntry.responseStart - navEntry.requestStart,
+                            response: navEntry.responseEnd - navEntry.responseStart,
+                            dom: navEntry.domContentLoadedEventEnd - navEntry.domContentLoadedEventStart,
+                            loadEvent: navEntry.loadEventEnd - navEntry.loadEventStart
+                        });
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
