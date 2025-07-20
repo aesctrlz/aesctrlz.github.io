@@ -31,7 +31,7 @@
     <meta name="twitter:image" content="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/ctrl-z.png">
     <meta name="twitter:creator" content="@aesneverhere">
     
-    <!-- [PERBAIKAN] Favicon Diperbarui dengan Ukuran Berbeda -->
+    <!-- Favicon Diperbarui dengan Ukuran Berbeda -->
     <link rel="icon" href="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/favicon-180.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/aesctrlz/aesctrlz.github.io/main/docs/tmp/favicon-32.png">
@@ -94,8 +94,8 @@
             --shadow-medium: rgba(0, 0, 0, 0.12);
             --shadow-dark: rgba(0, 0, 0, 0.2);
             --shadow-dark-mode: rgba(255, 255, 255, 0.08);
-            --glass-light: rgba(255, 255, 255, 0.7);
-            --glass-dark: rgba(30, 30, 30, 0.7);
+            --glass-light: rgba(255, 255, 255, 0.15); /* Lebih transparan */
+            --glass-dark: rgba(30, 30, 30, 0.15); /* Lebih transparan */
             --glass-border-light: rgba(255, 255, 255, 0.3);
             --glass-border-dark: rgba(255, 255, 255, 0.1);
             --border-light: rgba(0, 0, 0, 0.1);
@@ -137,7 +137,6 @@
             height: 100%;
         }
         
-        /* [PERBAIKAN] Menambahkan background-color pada html untuk mencegah glitch putih */
         html.dark {
             background-color: var(--bg-dark);
         }
@@ -147,7 +146,7 @@
             margin: 0;
             padding: 0;
             transition: background-color var(--transition-speed), color var(--transition-speed);
-            overflow-x: hidden;
+            overflow-x: hidden; /* Mencegah scroll horizontal */
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -173,8 +172,10 @@
             background: linear-gradient(45deg, var(--primary-color), var(--primary-hover));
             opacity: 0.08;
             animation: float-particles 20s linear infinite;
+            will-change: transform, opacity; /* Optimasi */
         }
         
+        /* Variasi partikel untuk animasi yang lebih dinamis */
         .bg-particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: -2s; animation-duration: 15s; }
         .bg-particle:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: -4s; animation-duration: 18s; }
         .bg-particle:nth-child(3) { width: 8px; height: 8px; left: 30%; animation-delay: -6s; animation-duration: 22s; }
@@ -185,8 +186,12 @@
         .bg-particle:nth-child(8) { width: 4px; height: 4px; left: 80%; animation-delay: -16s; animation-duration: 21s; }
         .bg-particle:nth-child(9) { width: 5px; height: 5px; left: 90%; animation-delay: -18s; animation-duration: 14s; }
         .bg-particle:nth-child(10) { width: 8px; height: 8px; left: 15%; animation-delay: -20s; animation-duration: 23s; }
+        /* Partikel tambahan dengan bentuk dan warna berbeda */
         .bg-particle:nth-child(11) { width: 7px; height: 7px; left: 25%; top: 0; border-radius: 2px; animation-delay: -5s; animation-duration: 25s; background: linear-gradient(45deg, var(--accent-color), var(--accent-hover)); }
         .bg-particle:nth-child(12) { width: 5px; height: 5px; left: 75%; top: 0; border-radius: 50%; animation-delay: -15s; animation-duration: 16s; background: linear-gradient(45deg, var(--secondary-color), var(--primary-light)); }
+        .bg-particle:nth-child(13) { width: 10px; height: 10px; left: 5%; animation-delay: -3s; animation-duration: 20s; background: linear-gradient(45deg, var(--primary-light), var(--primary-color)); }
+        .bg-particle:nth-child(14) { width: 6px; height: 6px; left: 95%; animation-delay: -7s; animation-duration: 18s; background: linear-gradient(45deg, var(--accent-hover), var(--accent-color)); }
+        .bg-particle:nth-child(15) { width: 8px; height: 8px; left: 45%; animation-delay: -11s; animation-duration: 24s; }
         
         @keyframes float-particles {
             0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
@@ -311,21 +316,20 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: var(--glass-light);
+            backdrop-filter: blur(25px); /* Meningkatkan blur */
+            -webkit-backdrop-filter: blur(25px);
             z-index: var(--z-fixed);
             padding: var(--spacing-sm) 0;
-            transition: transform var(--transition-speed), background var(--transition-speed);
-            border-bottom: 1px solid var(--border-light);
-            /* [PERBAIKAN] Mendorong rendering GPU untuk mencegah glitch */
+            transition: transform var(--transition-speed), background var(--transition-speed), border-bottom-color var(--transition-speed);
+            border-bottom: 1px solid var(--glass-border-light);
             transform: translateZ(0);
-            will-change: transform;
+            will-change: transform; /* Optimasi */
         }
         
         .dark .navigation {
-            background: rgba(18, 18, 18, 0.95);
-            border-bottom-color: var(--border-dark);
+            background: var(--glass-dark);
+            border-bottom-color: var(--glass-border-dark);
         }
         
         .navigation.hidden {
@@ -433,18 +437,23 @@
             right: -300px;
             width: 280px;
             height: 100%;
-            background: var(--bg-light);
-            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            background: var(--glass-light);
+            backdrop-filter: blur(25px); /* Meningkatkan blur */
+            -webkit-backdrop-filter: blur(25px);
+            box-shadow: -5px 0 15px var(--shadow-medium);
             z-index: calc(var(--z-overlay) + 1);
             display: flex;
             flex-direction: column;
             padding: var(--spacing-md);
             transition: right var(--transition-speed) ease-in-out;
             list-style: none;
+            border-left: 1px solid var(--glass-border-light);
+            will-change: transform; /* Optimasi */
         }
 
         .dark .mobile-nav-menu {
-            background: var(--bg-dark);
+            background: var(--glass-dark);
+            border-left: 1px solid var(--glass-border-dark);
         }
 
         .mobile-nav-menu.active {
@@ -477,8 +486,8 @@
             background: none;
             border: none;
             font-size: 1.8rem;
-            color: var(--text-secondary);
             cursor: pointer;
+            color: var(--text-secondary);
             padding: var(--spacing-xs);
             margin-bottom: var(--spacing-md);
         }
@@ -516,6 +525,7 @@
             background-clip: text;
             font-weight: 700;
             letter-spacing: -2px;
+            will-change: transform, opacity; /* Optimasi */
         }
         
         .hero-subtitle {
@@ -531,6 +541,7 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            will-change: transform, opacity; /* Optimasi */
         }
         
         .dark .hero-subtitle {
@@ -550,6 +561,7 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            will-change: transform, opacity; /* Optimasi */
         }
         
         .hero-subtitle i,
@@ -664,8 +676,8 @@
             padding: var(--spacing-sm);
             border-radius: 50%;
             background: var(--glass-light);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(25px); /* Meningkatkan blur */
+            -webkit-backdrop-filter: blur(25px);
             color: var(--text-primary);
             transition: all var(--transition-speed);
             border: 1px solid var(--glass-border-light);
@@ -678,6 +690,7 @@
             box-shadow: 0 4px 15px var(--shadow-light);
             position: relative;
             overflow: hidden;
+            will-change: transform, background, backdrop-filter, border-color, box-shadow; /* Optimasi */
         }
         .dark .toggle {
             background: var(--glass-dark);
@@ -720,24 +733,25 @@
             margin-right: var(--spacing-md);
         }
         
-        /* [PERBAIKAN] Menambahkan padding untuk memperbaiki judul yang terpotong */
+        /* Perbaikan: Menambahkan padding-top yang cukup untuk judul yang dianimasikan */
         .section-title-container {
             overflow: hidden;
-            padding-top: 1.5rem; 
+            padding-top: 3rem; /* Disesuaikan untuk memberi ruang pada animasi judul */
+            margin-bottom: var(--spacing-lg); /* Pindahkan margin-bottom dari .section-title */
         }
 
         .section-title {
             font-size: clamp(2rem, 5vw, 3rem);
             text-align: center;
-            margin-bottom: var(--spacing-lg);
             position: relative;
             font-weight: 700;
             text-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transform: translateY(100%);
+            transform: translateY(100%); /* Animasi awal di bawah */
             transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform; /* Optimasi */
         }
         .section.visible .section-title {
-            transform: translateY(0);
+            transform: translateY(0); /* Animasi akhir di posisi normal */
         }
         .dark .section-title { text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         
@@ -786,8 +800,8 @@
         
         .stat-card {
             background: var(--glass-light);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px); /* Meningkatkan blur */
+            -webkit-backdrop-filter: blur(25px);
             padding: var(--spacing-md);
             border-radius: var(--border-radius);
             text-align: center;
@@ -797,6 +811,7 @@
             position: relative;
             overflow: hidden;
             animation: slideInUp 0.6s ease-out;
+            will-change: transform, background, backdrop-filter, border-color, box-shadow; /* Optimasi */
         }
         
         .stat-card::before {
@@ -844,8 +859,8 @@
         
         .skills {
             background: var(--glass-light);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px); /* Meningkatkan blur */
+            -webkit-backdrop-filter: blur(25px);
             margin: var(--spacing-xl) 0;
             padding: var(--spacing-xl) var(--spacing-md);
             border-radius: var(--border-radius-lg);
@@ -853,6 +868,7 @@
             box-shadow: 0 8px 32px var(--shadow-light);
             position: relative;
             overflow: hidden;
+            will-change: background, backdrop-filter, border-color, box-shadow; /* Optimasi */
         }
         
         .dark .skills {
@@ -907,8 +923,8 @@
         
         .project-card {
             background: var(--glass-light);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px); /* Meningkatkan blur */
+            -webkit-backdrop-filter: blur(25px);
             border-radius: var(--border-radius-lg);
             overflow: hidden;
             box-shadow: 0 8px 32px var(--shadow-light);
@@ -917,6 +933,7 @@
             position: relative;
             --mouse-x: 50%;
             --mouse-y: 50%;
+            will-change: transform, background, backdrop-filter, border-color, box-shadow; /* Optimasi */
         }
         
         .project-card::before {
@@ -1014,6 +1031,17 @@
             font-size: 0.8rem;
             font-weight: 500;
         }
+
+        /* Background text for tech tags */
+        .tech-tag.bg-python { background-color: #306998; color: white; }
+        .tech-tag.bg-go { background-color: #00ADD8; color: white; }
+        .tech-tag.bg-telegram-bots { background-color: #0088CC; color: white; }
+        .tech-tag.bg-csharp { background-color: #92308C; color: white; }
+        .tech-tag.bg-open-source { background-color: #5cb85c; color: white; }
+        .tech-tag.bg-cpp { background-color: #00599C; color: white; }
+        .tech-tag.bg-ruby { background-color: #CC342D; color: white; }
+        .tech-tag.bg-bash { background-color: #4EAA25; color: white; }
+        .tech-tag.bg-experiments { background-color: #f0ad4e; color: white; }
         
         .project-links {
             display: flex;
@@ -1027,8 +1055,8 @@
         
         .devices {
             background: var(--glass-light);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px); /* Meningkatkan blur */
+            -webkit-backdrop-filter: blur(25px);
             margin: var(--spacing-xl) 0;
             padding: var(--spacing-xl) var(--spacing-md);
             border-radius: var(--border-radius-lg);
@@ -1036,6 +1064,7 @@
             box-shadow: 0 8px 32px var(--shadow-light);
             position: relative;
             overflow: hidden;
+            will-change: background, backdrop-filter, border-color, box-shadow; /* Optimasi */
         }
         
         .dark .devices {
@@ -1053,8 +1082,8 @@
         
         .device-card {
             background: var(--glass-light);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px); /* Meningkatkan blur */
+            -webkit-backdrop-filter: blur(25px);
             border-radius: var(--border-radius);
             padding: var(--spacing-md);
             box-shadow: 0 8px 32px var(--shadow-light);
@@ -1064,6 +1093,7 @@
             position: relative;
             overflow: hidden;
             animation: slideInUp 0.6s ease-out;
+            will-change: transform, background, backdrop-filter, border-color, box-shadow; /* Optimasi */
         }
         
         .dark .device-card {
@@ -1243,13 +1273,14 @@
         
         footer {
             background: var(--glass-light);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px); /* Meningkatkan blur */
+            -webkit-backdrop-filter: blur(25px);
             text-align: center;
             padding: var(--spacing-lg) var(--spacing-md);
             border-top: 1px solid var(--glass-border-light);
             margin-top: var(--spacing-xl);
             box-shadow: 0 -4px 16px var(--shadow-light);
+            will-change: background, backdrop-filter, border-color, box-shadow; /* Optimasi */
         }
         
         .dark footer {
@@ -1345,7 +1376,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(10px); /* Meningkatkan blur */
             z-index: var(--z-modal);
             opacity: 0;
             visibility: hidden;
@@ -1362,7 +1393,9 @@
             transform: translate(-50%, -50%) scale(0.95);
             width: 90%;
             max-width: 600px;
-            background: var(--bg-light);
+            background: var(--glass-light);
+            backdrop-filter: blur(25px); /* Meningkatkan blur */
+            -webkit-backdrop-filter: blur(25px);
             border-radius: var(--border-radius-lg);
             box-shadow: 0 10px 30px var(--shadow-dark);
             overflow: hidden;
@@ -1370,6 +1403,8 @@
             opacity: 0;
             visibility: hidden;
             transition: transform 0.3s, opacity 0.3s, visibility 0.3s;
+            border: 1px solid var(--glass-border-light);
+            will-change: transform, background, backdrop-filter, border-color, box-shadow; /* Optimasi */
         }
         .command-palette-overlay.visible .command-palette {
             transform: translate(-50%, -50%) scale(1);
@@ -1377,8 +1412,8 @@
             visibility: visible;
         }
         .dark .command-palette {
-            background: var(--bg-dark-secondary);
-            border: 1px solid var(--border-dark);
+            background: var(--glass-dark);
+            border: 1px solid var(--glass-border-dark);
         }
         .command-palette-input {
             width: 100%;
@@ -1445,7 +1480,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px); /* Meningkatkan blur */
             z-index: var(--z-modal);
             display: none;
             align-items: center;
@@ -1458,7 +1493,9 @@
             opacity: 1;
         }
         .gemini-modal {
-            background: var(--bg-light);
+            background: var(--glass-light);
+            backdrop-filter: blur(25px); /* Meningkatkan blur */
+            -webkit-backdrop-filter: blur(25px);
             padding: var(--spacing-lg);
             border-radius: var(--border-radius-lg);
             box-shadow: 0 10px 40px var(--shadow-dark);
@@ -1467,12 +1504,15 @@
             z-index: calc(var(--z-modal) + 1);
             transform: scale(0.95);
             transition: transform 0.3s;
+            border: 1px solid var(--glass-border-light);
+            will-change: transform, background, backdrop-filter, border-color, box-shadow; /* Optimasi */
         }
         .gemini-modal-overlay.visible .gemini-modal {
             transform: scale(1);
         }
         .dark .gemini-modal {
-            background: var(--bg-dark-secondary);
+            background: var(--glass-dark);
+            border: 1px solid var(--glass-border-dark);
         }
         .gemini-modal-header {
             display: flex;
@@ -1600,7 +1640,7 @@
 
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
-    <div class="loading-screen" id="loadingScreen">
+    <div class="loading-screen" id="loadingScreen" role="status" aria-live="polite" aria-label="Loading content">
         <div class="spinner-container">
             <div class="spinner"></div>
             <p class="loading-text">Loading<span class="loading-dots"></span></p>
@@ -1616,33 +1656,34 @@
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" id="mobileMenuToggle">
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" id="mobileMenuToggle" tabindex="0">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
 
-    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
-    <ul class="mobile-nav-menu" id="mobileNavMenu">
-        <button class="mobile-menu-close" aria-label="Close mobile menu" id="mobileMenuClose">
+    <div class="mobile-nav-overlay" id="mobileNavOverlay" aria-hidden="true"></div>
+    <ul class="mobile-nav-menu" id="mobileNavMenu" role="menu">
+        <button class="mobile-menu-close" aria-label="Close mobile menu" id="mobileMenuClose" tabindex="0">
             <i class="fas fa-times"></i>
         </button>
-        <li><a href="#home" class="nav-link mobile-nav-link">Home</a></li>
-        <li><a href="#about" class="nav-link mobile-nav-link">About</a></li>
-        <li><a href="#projects" class="nav-link mobile-nav-link">Projects</a></li>
-        <li><a href="#contact" class="nav-link mobile-nav-link">Contact</a></li>
+        <li><a href="#home" class="nav-link mobile-nav-link" role="menuitem">Home</a></li>
+        <li><a href="#about" class="nav-link mobile-nav-link" role="menuitem">About</a></li>
+        <li><a href="#projects" class="nav-link mobile-nav-link" role="menuitem">Projects</a></li>
+        <li><a href="#contact" class="nav-link mobile-nav-link" role="menuitem">Contact</a></li>
     </ul>
     
     <div class="toggle-container">
-        <button class="toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <button class="toggle" id="themeToggle" aria-label="Toggle dark mode" tabindex="0">
             <i class="fas fa-moon"></i>
         </button>
-        <button class="toggle" id="languageToggle" aria-label="Toggle language">
+        <button class="toggle" id="languageToggle" aria-label="Toggle language" tabindex="0">
             <span id="languageText">EN</span>
         </button>
     </div>
     
     <div class="animated-bg">
+        <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
         <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
         <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
         <div class="bg-particle"></div><div class="bg-particle"></div><div class="bg-particle"></div>
@@ -1653,25 +1694,25 @@
         <section class="hero" id="home" role="banner">
             <div class="hero-content">
                 <h1>Aes.</h1>
-                <p class="hero-subtitle"><i class="fas fa-quote-left"></i> Silence is our default setting. Curiosity is our engine. <i class="fas fa-quote-right"></i></p>
-                <p class="hero-description" id="heroDescriptionEN">
+                <p class="hero-subtitle" aria-live="polite"><i class="fas fa-quote-left"></i> Silence is our default setting. Curiosity is our engine. <i class="fas fa-quote-right"></i></p>
+                <p class="hero-description" id="heroDescriptionEN" aria-live="polite">
                     <i class="fas fa-robot"></i> Self-taught developer passionate about automation, and creating tools that solve real problems.
                 </p>
-                <p class="hero-description" id="heroDescriptionID" style="display: none;">
+                <p class="hero-description" id="heroDescriptionID" style="display: none;" aria-live="polite">
                     <i class="fas fa-robot"></i> Developer otodidak yang passionate tentang otomasi, dan menciptakan tools yang memecahkan masalah nyata.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary magnetic-button" id="viewWorkBtn">
+                    <a href="#projects" class="btn btn-primary magnetic-button" id="viewWorkBtn" role="button">
                         <i class="fas fa-code"></i>
                         <span id="viewWorkText">View My Work</span>
                     </a>
-                    <a href="#contact" class="btn btn-secondary magnetic-button" id="getInTouchBtn">
+                    <a href="#contact" class="btn btn-secondary magnetic-button" id="getInTouchBtn" role="button">
                         <i class="fas fa-envelope"></i>
                         <span id="getInTouchText">Get In Touch</span>
                     </a>
                 </div>
             </div>
-            <div class="scroll-indicator">
+            <div class="scroll-indicator" aria-hidden="true">
                 <i class="fas fa-chevron-down"></i>
             </div>
         </section>
@@ -1689,10 +1730,10 @@
                 </p>
                 
                 <div class="stats-grid">
-                    <div class="stat-card"><span class="stat-number">3+</span><span class="stat-label" id="yearsCodingLabel">Years Coding</span></div>
-                    <div class="stat-card"><span class="stat-number">50+</span><span class="stat-label" id="projectsCreatedLabel">Projects Created</span></div>
-                    <div class="stat-card"><span class="stat-number">100%</span><span class="stat-label" id="selfTaughtLabel">Self-taught</span></div>
-                    <div class="stat-card"><span class="stat-number">∞</span><span class="stat-label" id="curiosityLabel">Curiosity Level</span></div>
+                    <div class="stat-card" data-tilt><span class="stat-number">3+</span><span class="stat-label" id="yearsCodingLabel">Years Coding</span></div>
+                    <div class="stat-card" data-tilt><span class="stat-number">50+</span><span class="stat-label" id="projectsCreatedLabel">Projects Created</span></div>
+                    <div class="stat-card" data-tilt><span class="stat-number">100%</span><span class="stat-label" id="selfTaughtLabel">Self-taught</span></div>
+                    <div class="stat-card" data-tilt><span class="stat-number">∞</span><span class="stat-label" id="curiosityLabel">Curiosity Level</span></div>
                 </div>
             </div>
         </section>
@@ -1719,10 +1760,14 @@
                         <p class="project-description">
                             A collection of modular tools and automation scripts designed to solve specific problems and streamline complex workflows, all open-sourced.
                         </p>
-                        <div class="project-tech"><span class="tech-tag">JavaScript</span><span class="tech-tag">Node.js</span><span class="tech-tag">Open Source</span></div>
+                        <div class="project-tech">
+                            <span class="tech-tag bg-python">Python</span>
+                            <span class="tech-tag bg-go">Go</span>
+                            <span class="tech-tag bg-telegram-bots">Telegram Bots</span>
+                        </div>
                         <div class="project-links">
-                            <a href="https://github.com/aes-co" class="btn btn-secondary project-link magnetic-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="https://github.com/aes-co" class="btn btn-primary project-link magnetic-button" aria-label="Explore AES-CO"><i class="fas fa-external-link-alt"></i> Explore</a>
+                            <a href="https://github.com/aes-co" class="btn btn-secondary project-link magnetic-button" target="_blank" rel="noopener noreferrer" role="button"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="https://github.com/aes-co" class="btn btn-primary project-link magnetic-button" aria-label="Explore AES-CO" target="_blank" rel="noopener noreferrer" role="button"><i class="fas fa-external-link-alt"></i> Explore</a>
                         </div>
                     </div>
                 </div>
@@ -1736,10 +1781,15 @@
                         <p class="project-description">
                             The spiritual successor to AES-CO, embodying resilience and creativity. A testament to the unbreakable spirit of development, focusing on robust and innovative solutions.
                         </p>
-                        <div class="project-tech"><span class="tech-tag">TypeScript</span><span class="tech-tag">React</span><span class="tech-tag">Automation</span></div>
+                        <div class="project-tech">
+                            <span class="tech-tag bg-python">Python</span>
+                            <span class="tech-tag bg-go">Go</span>
+                            <span class="tech-tag bg-csharp">C#</span>
+                            <span class="tech-tag bg-open-source">Open Source</span>
+                        </div>
                         <div class="project-links">
-                            <a href="https://github.com/ctrlzverse" class="btn btn-secondary project-link magnetic-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="https://github.com/ctrlzverse" class="btn btn-primary project-link magnetic-button" aria-label="Explore ctrl-z verse"><i class="fas fa-external-link-alt"></i> Explore</a>
+                            <a href="https://github.com/ctrlzverse" class="btn btn-secondary project-link magnetic-button" target="_blank" rel="noopener noreferrer" role="button"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="https://github.com/ctrlzverse" class="btn btn-primary project-link magnetic-button" aria-label="Explore ctrl-z verse" target="_blank" rel="noopener noreferrer" role="button"><i class="fas fa-external-link-alt"></i> Explore</a>
                         </div>
                     </div>
                 </div>
@@ -1768,16 +1818,14 @@
                 <p class="contact-text" id="contactTextEN"><i class="fas fa-handshake"></i> I'm always excited to collaborate on interesting projects or discuss new ideas. Whether you're looking for automation solutions, or just want to chat about tech, feel free to reach out!</p>
                 <p class="contact-text" id="contactTextID" style="display: none;"><i class="fas fa-handshake"></i> Aku selalu antusias untuk berkolaborasi dalam proyek menarik atau mendiskusikan ide-ide baru. Baik kamu mencari solusi otomasi, atau hanya ingin ngobrol tentang teknologi, jangan ragu untuk menghubungi!</p>
                 <div class="social-links">
-                    <a href="https://github.com/aesctrlz" class="social-link magnetic-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="https://t.me/aesneverhere" class="social-link magnetic-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i> Telegram Profile</a>
-                    <a href="https://t.me/aes_hub" class="social-link magnetic-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i> Telegram Channel</a>
-                    <a href="mailto:aesh.n@outlook.com" class="social-link magnetic-button"><i class="fas fa-envelope"></i> Personal Email</a>
-                    <!-- [PERBAIKAN] Teks email organisasi diubah -->
-                    <a href="mailto:hello@zverse.my.id" class="social-link magnetic-button"><i class="fas fa-building"></i> Project Inquiries</a>
+                    <a href="https://github.com/aesctrlz" class="social-link magnetic-button" target="_blank" rel="noopener noreferrer" role="button"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://t.me/aesneverhere" class="social-link magnetic-button" target="_blank" rel="noopener noreferrer" role="button"><i class="fab fa-telegram"></i> Telegram Profile</a>
+                    <a href="https://t.me/aes_hub" class="social-link magnetic-button" target="_blank" rel="noopener noreferrer" role="button"><i class="fab fa-telegram-plane"></i> Telegram Channel</a>
+                    <a href="mailto:aesh.n@outlook.com" class="social-link magnetic-button" role="button"><i class="fas fa-envelope"></i> Personal Email</a>
+                    <a href="mailto:hello@zverse.my.id" class="social-link magnetic-button" role="button"><i class="fas fa-building"></i> Project Inquiries</a>
                 </div>
-                <!-- Tombol Gemini Ditambahkan -->
                 <div class="hero-buttons" style="margin-top: var(--spacing-lg);">
-                    <button class="btn btn-primary magnetic-button" id="askGeminiBtn">
+                    <button class="btn btn-primary magnetic-button" id="askGeminiBtn" role="button" tabindex="0">
                         <i class="fas fa-lightbulb"></i> Tanya Gemini untuk Ide Proyek ✨
                     </button>
                 </div>
@@ -1793,30 +1841,30 @@
         </div>
     </footer>
     
-    <div class="toast" id="toast"></div>
+    <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
 
-    <div class="command-palette-overlay" id="commandPaletteOverlay">
-        <div class="command-palette" id="commandPalette">
-            <input type="text" class="command-palette-input" id="commandPaletteInput" placeholder="Type a command or search...">
-            <ul class="command-palette-list" id="commandPaletteList"></ul>
+    <div class="command-palette-overlay" id="commandPaletteOverlay" aria-hidden="true">
+        <div class="command-palette" id="commandPalette" role="dialog" aria-modal="true" aria-label="Command Palette">
+            <input type="text" class="command-palette-input" id="commandPaletteInput" placeholder="Type a command or search..." aria-autocomplete="list" aria-controls="commandPaletteList" aria-expanded="true">
+            <ul class="command-palette-list" id="commandPaletteList" role="listbox"></ul>
         </div>
     </div>
 
     <!-- Modal Gemini -->
-    <div class="gemini-modal-overlay" id="geminiModalOverlay">
-        <div class="gemini-modal" id="geminiModal">
+    <div class="gemini-modal-overlay" id="geminiModalOverlay" aria-hidden="true">
+        <div class="gemini-modal" id="geminiModal" role="dialog" aria-modal="true" aria-label="Get Project Ideas from Gemini">
             <div class="gemini-modal-header">
                 <h3 class="gemini-modal-title">✨ Dapatkan Ide Proyek dari Gemini</h3>
-                <button class="gemini-modal-close" id="geminiModalClose">&times;</button>
+                <button class="gemini-modal-close" id="geminiModalClose" aria-label="Close Gemini modal" tabindex="0">&times;</button>
             </div>
             <div class="gemini-modal-content">
                 <p>Masukkan keahlian dan minat Anda (misalnya: "JavaScript, React, game development"), dan biarkan Gemini memberikan ide proyek yang keren untuk Anda!</p>
-                <textarea id="geminiSkillsInput" placeholder="Contoh: Python, web scraping, data analysis"></textarea>
-                <button class="btn btn-primary" id="generateIdeaBtn" style="width: 100%;">
+                <textarea id="geminiSkillsInput" placeholder="Contoh: Python, web scraping, data analysis" aria-label="Your skills and interests"></textarea>
+                <button class="btn btn-primary" id="generateIdeaBtn" style="width: 100%;" role="button" tabindex="0">
                     <i class="fas fa-cogs"></i> Buat Ide
                 </button>
-                <div class="gemini-spinner" id="geminiSpinner"></div>
-                <div class="gemini-response" id="geminiResponse"></div>
+                <div class="gemini-spinner" id="geminiSpinner" role="status" aria-label="Generating idea"></div>
+                <div class="gemini-response" id="geminiResponse" aria-live="polite"></div>
             </div>
         </div>
     </div>
@@ -1850,6 +1898,7 @@
                 this.initializeCommandPalette();
                 this.initializeScrollProgress();
                 this.initializeGeminiFeature();
+                this.initializeParticleMouseEffect(); // Inisialisasi efek mouse partikel
             }
             
             initializeElements() {
@@ -1970,12 +2019,14 @@
             
             initializeScrollEffects() {
                 let lastScrollTop = 0;
-                window.addEventListener('scroll', () => {
+                const handleScroll = () => {
                     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                     this.navigation.classList.toggle('hidden', scrollTop > lastScrollTop && scrollTop > 100);
                     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
                     this.animateOnScroll();
-                });
+                    // requestAnimationFrame(handleScroll); // Dihapus karena sudah di handle oleh main loop
+                };
+                window.addEventListener('scroll', handleScroll); // Menggunakan event listener biasa, requestAnimationFrame di main loop
             }
             
             animateOnScroll() {
@@ -1991,12 +2042,9 @@
                 document.querySelectorAll('a[href^="#"]').forEach(link => {
                     link.addEventListener('click', (e) => {
                         e.preventDefault();
-                        const targetElement = document.getElementById(link.getAttribute('href').slice(1));
-                        if (targetElement) {
-                            const offsetTop = targetElement.offsetTop - this.navigation.offsetHeight - 20;
-                            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-                            if (this.mobileNavMenu.classList.contains('active')) this.closeMobileMenu();
-                        }
+                        const targetId = link.getAttribute('href').slice(1);
+                        this.scrollToSection(targetId);
+                        if (this.mobileNavMenu.classList.contains('active')) this.closeMobileMenu();
                     });
                 });
                 this.updateActiveNavItem();
@@ -2045,24 +2093,50 @@
                 this.mobileNavLinks.forEach(link => link.addEventListener('click', () => this.closeMobileMenu()));
             }
 
-            openMobileMenu() { this.mobileNavOverlay.classList.add('active'); this.mobileNavMenu.classList.add('active'); document.body.style.overflow = 'hidden'; }
-            closeMobileMenu() { this.mobileNavOverlay.classList.remove('active'); this.mobileNavMenu.classList.remove('active'); document.body.style.overflow = ''; }
+            openMobileMenu() { 
+                this.mobileNavOverlay.classList.add('active'); 
+                this.mobileNavMenu.classList.add('active'); 
+                document.body.style.overflow = 'hidden'; 
+                this.mobileNavOverlay.setAttribute('aria-hidden', 'false');
+                this.mobileNavMenu.setAttribute('aria-hidden', 'false');
+            }
+            closeMobileMenu() { 
+                this.mobileNavOverlay.classList.remove('active'); 
+                this.mobileNavMenu.classList.remove('active'); 
+                document.body.style.overflow = ''; 
+                this.mobileNavOverlay.setAttribute('aria-hidden', 'true');
+                this.mobileNavMenu.setAttribute('aria-hidden', 'true');
+            }
             
             showToast(message, type = 'info', duration = 3000) {
-                this.toast.textContent = ''; this.toast.className = 'toast show'; this.toast.classList.add(type);
+                this.toast.textContent = ''; 
+                this.toast.className = 'toast show'; 
+                this.toast.classList.add(type);
+                this.toast.setAttribute('aria-live', 'assertive'); // Make toast accessible
+                this.toast.setAttribute('role', 'alert');
+
                 let iconClass = 'fas fa-info-circle';
                 if (type === 'success') iconClass = 'fas fa-check-circle';
                 else if (type === 'error') iconClass = 'fas fa-times-circle';
                 else if (type === 'warning') iconClass = 'fas fa-exclamation-triangle';
-                const iconElement = document.createElement('i'); iconElement.className = iconClass; this.toast.appendChild(iconElement);
+                const iconElement = document.createElement('i'); 
+                iconElement.className = iconClass; 
+                this.toast.appendChild(iconElement);
                 this.toast.appendChild(document.createTextNode(' ' + message));
-                setTimeout(() => this.toast.classList.remove('show'), duration);
+                
+                setTimeout(() => {
+                    this.toast.classList.remove('show');
+                    this.toast.removeAttribute('aria-live');
+                    this.toast.removeAttribute('role');
+                }, duration);
             }
             
             initializeKeyboardNavigation() {
                 document.addEventListener('keydown', (e) => {
                     if (e.key.toLowerCase() === 'l' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); this.languageToggle.click(); }
                     if (e.key === 'Escape' && this.mobileNavMenu.classList.contains('active')) this.closeMobileMenu();
+                    if (e.key === 'Escape' && document.getElementById('commandPaletteOverlay').classList.contains('visible')) this.closeCommandPalette();
+                    if (e.key === 'Escape' && document.getElementById('geminiModalOverlay').classList.contains('visible')) this.closeGeminiModal();
                 });
             }
 
@@ -2071,47 +2145,69 @@
                 const originalSubtitle = this.translations[currentLang].heroSubtitleText;
                 const originalDescriptionEN = this.translations.en.heroDescriptionTextEN;
                 const originalDescriptionID = this.translations.id.heroDescriptionTextID;
-                this.heroSubtitle.innerHTML = ''; this.heroDescriptionEN.innerHTML = ''; this.heroDescriptionID.innerHTML = '';
+                
+                // Clear content before typing
+                this.heroSubtitle.innerHTML = ''; 
+                this.heroDescriptionEN.innerHTML = ''; 
+                this.heroDescriptionID.innerHTML = '';
+
                 const typeText = (element, text, delay = 50, callback) => {
-                    let i = 0; element.style.opacity = 1;
+                    let i = 0; 
+                    element.style.opacity = 1;
                     const typingInterval = setInterval(() => {
                         if (i < text.length) {
                             const char = text.charAt(i);
-                            if (char === '<') {
+                            if (char === '<') { // Handle HTML tags
                                 const endIndex = text.indexOf('>', i);
-                                if (endIndex !== -1) { element.innerHTML += text.substring(i, endIndex + 1); i = endIndex + 1; } 
-                                else { element.innerHTML += char; i++; }
-                            } else { element.innerHTML += char; i++; }
-                        } else { clearInterval(typingInterval); if (callback) callback(); }
+                                if (endIndex !== -1) { 
+                                    element.innerHTML += text.substring(i, endIndex + 1); 
+                                    i = endIndex + 1; 
+                                } else { 
+                                    element.innerHTML += char; 
+                                    i++; 
+                                }
+                            } else { 
+                                element.innerHTML += char; 
+                                i++; 
+                            }
+                        } else { 
+                            clearInterval(typingInterval); 
+                            if (callback) callback(); 
+                        }
                     }, delay);
                 };
+
+                // Start typing effect after a short delay
                 setTimeout(() => {
                     typeText(this.heroSubtitle, originalSubtitle, 50, () => {
-                        if (currentLang === 'en') typeText(this.heroDescriptionEN, originalDescriptionEN, 30);
-                        else typeText(this.heroDescriptionID, originalDescriptionID, 30);
+                        if (currentLang === 'en') {
+                            typeText(this.heroDescriptionEN, originalDescriptionEN, 30);
+                        } else {
+                            typeText(this.heroDescriptionID, originalDescriptionID, 30);
+                        }
                     });
                 }, 1500);
             }
 
+
             initializeHeroParallax() {
-                window.addEventListener('scroll', () => {
-                    const scrolled = window.pageYOffset;
-                    const hero = document.querySelector('.hero'); if (!hero) return;
-                    const heroHeight = hero.offsetHeight;
-                    if (scrolled <= heroHeight) {
-                        this.heroTitle.style.transform = `translateY(${scrolled * 0.3}px)`;
-                        this.heroSubtitle.style.transform = `translateY(${scrolled * 0.2}px)`;
-                        this.heroDescriptionEN.style.transform = `translateY(${scrolled * 0.1}px)`;
-                        this.heroDescriptionID.style.transform = `translateY(${scrolled * 0.1}px)`;
-                    }
-                });
+                // Parallax effect is now handled by the main animation loop
             }
 
             initializeScrollIndicatorBehavior() {
-                const debounce = (func, wait) => { let timeout; return function(...args) { clearTimeout(timeout); timeout = setTimeout(() => func.apply(this, args), wait); }; };
+                const debounce = (func, wait) => { 
+                    let timeout; 
+                    return function(...args) { 
+                        clearTimeout(timeout); 
+                        timeout = setTimeout(() => func.apply(this, args), wait); 
+                    }; 
+                };
                 window.addEventListener('scroll', debounce(() => {
-                    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) { this.scrollIndicator.className = 'fas fa-chevron-up'; } 
-                    else { this.scrollIndicator.className = 'fas fa-chevron-down'; }
+                    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) { 
+                        this.scrollIndicator.className = 'fas fa-chevron-up'; 
+                    } else { 
+                        this.scrollIndicator.className = 'fas fa-chevron-down'; 
+                    }
                 }, 100));
             }
 
@@ -2174,35 +2270,62 @@
                     list.innerHTML = '';
                     const filteredCommands = commands.filter(cmd => cmd.name.toLowerCase().includes(filter.toLowerCase()));
                     
-                    filteredCommands.forEach((cmd, index) => {
-                        const item = document.createElement('li');
-                        item.className = 'command-palette-item';
-                        item.innerHTML = `<i class="fas ${cmd.icon}"></i> ${cmd.name} <kbd>${cmd.kbd}</kbd>`;
-                        item.addEventListener('click', () => {
-                            cmd.action();
-                            this.closeCommandPalette();
+                    if (filteredCommands.length === 0) {
+                        const noResults = document.createElement('li');
+                        noResults.className = 'command-palette-item';
+                        noResults.textContent = 'No commands found.';
+                        list.appendChild(noResults);
+                    } else {
+                        filteredCommands.forEach((cmd, index) => {
+                            const item = document.createElement('li');
+                            item.className = 'command-palette-item';
+                            item.setAttribute('role', 'option');
+                            item.setAttribute('id', `command-item-${index}`);
+                            item.innerHTML = `<i class="fas ${cmd.icon}"></i> ${cmd.name} <kbd>${cmd.kbd}</kbd>`;
+                            item.addEventListener('click', () => {
+                                cmd.action();
+                                this.closeCommandPalette();
+                            });
+                            list.appendChild(item);
                         });
-                        list.appendChild(item);
-                    });
+                    }
                     selectedIndex = -1;
+                    updateSelection();
                 };
 
                 const updateSelection = () => {
                     const items = list.querySelectorAll('.command-palette-item');
                     items.forEach((item, index) => {
                         item.classList.toggle('selected', index === selectedIndex);
+                        if (index === selectedIndex) {
+                            item.setAttribute('aria-selected', 'true');
+                            item.scrollIntoView({ block: 'nearest' });
+                        } else {
+                            item.removeAttribute('aria-selected');
+                        }
                     });
+                    if (selectedIndex > -1) {
+                        input.setAttribute('aria-activedescendant', `command-item-${selectedIndex}`);
+                    } else {
+                        input.removeAttribute('aria-activedescendant');
+                    }
                 };
 
                 this.openCommandPalette = () => {
                     overlay.classList.add('visible');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when palette is open
                     input.focus();
                     renderCommands();
+                    overlay.setAttribute('aria-hidden', 'false');
+                    document.getElementById('commandPalette').setAttribute('aria-hidden', 'false');
                 };
 
                 this.closeCommandPalette = () => {
                     overlay.classList.remove('visible');
+                    document.body.style.overflow = ''; // Restore scrolling
                     input.value = '';
+                    overlay.setAttribute('aria-hidden', 'true');
+                    document.getElementById('commandPalette').setAttribute('aria-hidden', 'true');
                 };
                 
                 this.scrollToSection = (id) => {
@@ -2220,6 +2343,8 @@
                     }
                     if (overlay.classList.contains('visible')) {
                         const items = list.querySelectorAll('.command-palette-item');
+                        if (items.length === 0) return; // No items to navigate
+
                         if (e.key === 'ArrowDown') {
                             e.preventDefault();
                             selectedIndex = (selectedIndex + 1) % items.length;
@@ -2244,15 +2369,16 @@
 
             initializeScrollProgress() {
                 const progressBar = document.getElementById('scroll-progress-bar');
-                window.addEventListener('scroll', () => {
+                const updateProgressBar = () => {
                     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
                     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
                     const scrollPercent = (scrollTop / scrollHeight) * 100;
                     progressBar.style.width = `${scrollPercent}%`;
-                });
+                    // requestAnimationFrame(updateProgressBar); // Dihapus karena sudah di handle oleh main loop
+                };
+                window.addEventListener('scroll', updateProgressBar); // Menggunakan event listener biasa, requestAnimationFrame di main loop
             }
 
-            // [PEMBARUAN] Fungsi untuk memanggil Gemini API melalui backend Vercel
             async callGeminiAPI(prompt) {
                 const apiUrl = "https://aesctrlz.vercel.app/api/gemini";
 
@@ -2260,7 +2386,7 @@
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ prompt }) // Mengirim prompt dalam format JSON yang benar
+                        body: JSON.stringify({ prompt })
                     });
 
                     if (!response.ok) {
@@ -2270,11 +2396,9 @@
 
                     const result = await response.json();
                     
-                    // Berdasarkan kode backend Anda, responsnya adalah { text: "..." }
                     if (result.text) {
                         return result.text;
                     } else {
-                        // Fallback jika struktur respons tidak seperti yang diharapkan
                         console.warn("Unexpected response structure from backend:", result);
                         return "Menerima respons, tetapi formatnya tidak terduga.";
                     }
@@ -2296,17 +2420,30 @@
 
                 askGeminiBtn.addEventListener('click', () => {
                     geminiModalOverlay.classList.add('visible');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                    geminiModalOverlay.setAttribute('aria-hidden', 'false');
+                    document.getElementById('geminiModal').setAttribute('aria-hidden', 'false');
+                    geminiSkillsInput.focus(); // Focus on input when modal opens
                 });
 
                 geminiModalClose.addEventListener('click', () => {
-                    geminiModalOverlay.classList.remove('visible');
+                    this.closeGeminiModal();
                 });
 
                 geminiModalOverlay.addEventListener('click', (e) => {
                     if (e.target === geminiModalOverlay) {
-                        geminiModalOverlay.classList.remove('visible');
+                        this.closeGeminiModal();
                     }
                 });
+
+                this.closeGeminiModal = () => {
+                    geminiModalOverlay.classList.remove('visible');
+                    document.body.style.overflow = ''; // Restore scrolling
+                    geminiModalOverlay.setAttribute('aria-hidden', 'true');
+                    document.getElementById('geminiModal').setAttribute('aria-hidden', 'true');
+                    geminiResponse.textContent = ''; // Clear previous response
+                    geminiSkillsInput.value = ''; // Clear input
+                };
 
                 generateIdeaBtn.addEventListener('click', async () => {
                     const skills = geminiSkillsInput.value;
@@ -2318,6 +2455,7 @@
                     geminiSpinner.style.display = 'block';
                     geminiResponse.textContent = '';
                     generateIdeaBtn.disabled = true;
+                    generateIdeaBtn.setAttribute('aria-busy', 'true'); // For accessibility
 
                     const prompt = `Act as a friendly and encouraging tech mentor. Based on the following skills and interests: "${skills}", suggest a creative and fun project idea for a developer portfolio. The idea should be described in a few sentences, followed by a list of key features and the suggested tech stack. Make the response engaging and motivational. Respond in Indonesian.`;
                     
@@ -2326,18 +2464,79 @@
                     geminiSpinner.style.display = 'none';
                     geminiResponse.textContent = idea;
                     generateIdeaBtn.disabled = false;
+                    generateIdeaBtn.removeAttribute('aria-busy');
                 });
+            }
+
+            // Efek interaktif partikel background
+            initializeParticleMouseEffect() {
+                const animatedBg = document.querySelector('.animated-bg');
+                const particles = document.querySelectorAll('.bg-particle');
+                const sensitivity = 0.02; // Seberapa sensitif partikel terhadap gerakan mouse
+
+                animatedBg.addEventListener('mousemove', (e) => {
+                    const mouseX = e.clientX;
+                    const mouseY = e.clientY;
+
+                    particles.forEach(particle => {
+                        const rect = particle.getBoundingClientRect();
+                        const particleCenterX = rect.left + rect.width / 2;
+                        const particleCenterY = rect.top + rect.height / 2;
+
+                        const deltaX = mouseX - particleCenterX;
+                        const deltaY = mouseY - particleCenterY;
+
+                        // Hitung pergeseran berdasarkan jarak dari mouse
+                        const offsetX = -deltaX * sensitivity;
+                        const offsetY = -deltaY * sensitivity;
+
+                        // Terapkan transformasi
+                        particle.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+                    });
+                });
+
+                animatedBg.addEventListener('mouseleave', () => {
+                    // Reset posisi partikel saat mouse meninggalkan area
+                    particles.forEach(particle => {
+                        particle.style.transform = 'translate(0,0)';
+                    });
+                });
+            }
+
+            // Main animation loop untuk performa yang lebih baik
+            mainAnimationLoop() {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.hero');
+                if (hero) {
+                    const heroHeight = hero.offsetHeight;
+                    if (scrolled <= heroHeight) {
+                        this.heroTitle.style.transform = `translateY(${scrolled * 0.3}px)`;
+                        this.heroSubtitle.style.transform = `translateY(${scrolled * 0.2}px)`;
+                        this.heroDescriptionEN.style.transform = `translateY(${scrolled * 0.1}px)`;
+                        this.heroDescriptionID.style.transform = `translateY(${scrolled * 0.1}px)`;
+                    }
+                }
+
+                // Update scroll progress bar
+                const progressBar = document.getElementById('scroll-progress-bar');
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrollPercent = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = `${scrollPercent}%`;
+
+                requestAnimationFrame(() => this.mainAnimationLoop());
             }
         }
         
         document.addEventListener('DOMContentLoaded', () => {
             const website = new WebsiteController();
+            website.mainAnimationLoop(); // Mulai main animation loop
             
             console.log('%c🌟 AESWNH - Aes', 'font-size: 2em; color: #b39ddb; font-weight: bold;');
             console.log('%cInterested in the code? Check out the source!', 'color: #666; font-style: italic;');
             
             let konamiCode = [];
-            const konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+            const konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // Up, Up, Down, Down, Left, Right, Left, Right, B, A
             
             document.addEventListener('keydown', (e) => {
                 konamiCode.push(e.keyCode);
@@ -2352,7 +2551,7 @@
                     setTimeout(() => {
                         document.body.style.filter = '';
                     }, 2000);
-                    konamiCode = [];
+                    konamiCode = []; // Reset konami code
                 }
             });
         });
